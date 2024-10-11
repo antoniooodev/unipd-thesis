@@ -1,0 +1,16 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% unipd/unipd-defaults.ldf
+%% UNIPD thesis configuration file
+%%
+%% Customization for UNIVERSITY DEGLI STUDI DI PADOVA (strings and cover)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE unipd/unipd-defaults.ldf}%
+
+% University
+\university(pt):={Universidade de Padova}
+\university(en):={University of Padua}
+\university(fr):={Université de Padoue}
+\university(it):={Università degli Studi di Padova}
+\university(logo):={unipd-bn}
+\university(logo,neg):={logo-light}
