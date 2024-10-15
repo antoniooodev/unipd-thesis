@@ -8,26 +8,76 @@
 
 \typeout{NT FILE chapter1.tex}%
 
-\chapter{Introduction}
-\label{cha:introduction}
+\chapter{Introduzione}
+\label{cha:introduzione}
 
 \prependtographicspath{{Chapters/Figures/Covers/}}
 
-\lipsum[1-100]
+\section{Informazioni di Base}
 
-\section{Section 1}
-\lipsum[1-100]
-\lipsum[1-100]
-\lipsum[1-100]
-\lipsum[1-100]
+\subsection{L'importanza dell'ambiente acustico nella ristorazione}
+\noindent
 
-\subsection{Subsection 1}
-\lipsum[1-100]
-\lipsum[1-100]
-\lipsum[1-100]
+Negli ultimi anni, il settore della ristorazione ha visto una crescente attenzione verso l'esperienza complessiva del cliente, che va ben oltre la semplice qualità del cibo. Tra i vari fattori che influenzano questa esperienza, l'ambiente acustico gioca un ruolo cruciale, spesso sottovalutato. Il rumore di fondo in un ristorante può significativamente alterare la percezione del gusto e il godimento complessivo del pasto.
 
-\section{Section 2}
-\lipsum[1-100]
-\lipsum[1-100]
-\lipsum[1-100]
-\lipsum[1-100]
+Studi recenti nel campo della psicoacustica hanno dimostrato come diversi livelli e tipi di suono possano influenzare la percezione del sapore e l'appetito. Tuttavia, la gestione dell'acustica in un ristorante presenta sfide uniche: mentre alcuni clienti potrebbero preferire un'atmosfera vivace, altri potrebbero desiderare un ambiente più tranquillo per una conversazione intima.
+
+In questo contesto, emerge l'idea innovativa di creare microambienti sonori personalizzati all'interno dello stesso spazio ristorativo. Questa soluzione permetterebbe di adattare l'esperienza acustica alle preferenze individuali dei clienti, ottimizzando al contempo l'atmosfera generale del locale. L'avvento tecnologico offre nuove possibilità per realizzare questo concetto, aprendo la strada a una rivoluzione nell'design acustico dei ristoranti.
+
+\subsection{L'evoluzione della tecnologia audio negli spazi pubblici TOO CHANGE}
+\noindent
+
+L'evoluzione tecnologia dell’audio ha trasformato radicalmente la gestione del suono negli spazi pubblici, compreso il settore della ristorazione. Questa avanzamento tecnologico può essere tracciata attraverso diverse fasi chiave.
+
+L’avvento della registrazione elettrica negli anni '20 del secolo scorso segnò l'inizio di una nuova era nella riproduzione sonora. Questo progresso portò a una maggiore consapevolezza dell'ambiente sonoro, anche se inizialmente più nel contesto della produzione musicale che in quello della ristorazione.
+
+Negli anni '50 vennero introdotti i riverberi artificiali, dispositivi utilizzati per simulare acusticamente l'effetto della riflessione del suono in uno spazio chiuso, aprendo nuove possibilità per la manipolazione del suono.
+
+Successivamente, a cavallo tra gli '60 e '70, emersero i primi dispositivi elettromeccanici progettati per generare effetti audio, come il riverbero di Hammond che offrì nuove possibilità creative nella manipolazione del suono anche in contesti non musicali.
+
+La rivoluzione digitale degli anni '80 e '90, con l'introduzione dei  \gls{dsp}, portò a una sofisticazione senza precedenti. Questa evoluzione tecnologica ha aperto la strada a sistemi audio più avanzati e personalizzabili, applicabili in vari contesti, inclusi i ristoranti.
+
+Nell'ultimo ventennio c'è stata una crescente consapevolezza dell'importanza dell'acustica nei ristoranti. L'introduzione del \gls{crai} in Nuova Zelanda, ad esempio, ha evidenziato come la qualità acustica sia diventata un fattore critico nella valutazione complessiva dell'esperienza di ristorazione.
+
+Recenti studi hanno evidenziato l'importanza dell'ambiente sonoro nei ristoranti, distinguendo tra suoni di sottofondo, suoni fisici e suoni situazionali. Il loro studio ha dimostrato come questi diversi tipi di suono influenzino la soddisfazione del cliente, evidenziando la necessità di un approccio olistico alla gestione dell'audio negli spazi di ristorazione.
+
+Oggi, l'integrazione di tecnologie \gls{iot} e AI sta portando allo sviluppo di sistemi audio adattivi e intelligenti, capaci di rispondere in tempo reale alle condizioni ambientali e alle preferenze dei vari utenti. 
+
+La sfida attuale consiste nell'integrare queste tecnologie in modo armonico, creando ambienti sonori che migliorino l'esperienza culinaria senza risultare invasivi. Il nostro progetto si inserisce in questo contesto, mirando a sviluppare un sistema di streaming audio personalizzato che possa contribuire a ottimizzare l'ambiente acustico nei ristoranti.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[mindmap, grow cyclic, every node/.style={concept, execute at begin node=\hskip0pt}, concept color=blue!40, text=black, level 1/.append style={level distance=4.5cm,sibling angle=51.4285714}, level 2/.append style={level distance=3cm}, scale=0.5, transform shape]
+            \node[concept] {Audio\\Technology\\Evolution}
+                child { node[alias=n1920s] {1920s\\Electrical\\Recording} }
+                child { node[alias=n1950s] {1950s\\Artificial\\Reverb} }
+                child { node[alias=n1960s] {1960-70s\\Electro-\\mechanical\\Devices} }
+                child { node[alias=n1980s] {1980s\\Digital\\Effects} }
+                child { node[alias=n1990s] {1990s\\DSP} }
+                child { node[alias=n2000s] {2000s\\Spatial\\Audio} }
+                child { node[alias=n2010s] {2010+\\IoT \& AI} };
+            \begin{pgfonlayer}{background}
+            \draw [circle connection bar] (n1920s) to (n1950s);
+            \draw [circle connection bar] (n1950s) to (n1960s);
+            \draw [circle connection bar] (n1960s) to (n1980s);
+            \draw [circle connection bar] (n1980s) to (n1990s);
+            \draw [circle connection bar] (n1990s) to (n2000s);
+            \draw [circle connection bar] (n2000s) to (n2010s);
+            \draw [circle connection bar] (n2010s) to (n1920s);
+            \end{pgfonlayer}
+    \end{tikzpicture}
+    \caption{Evoluzione della tecnologia audio nel corso del tempo.}
+\end{figure}
+
+\section{Il problema}
+\noindent
+
+Il concetto innovativo di "bolla sonora personalizzata" di SoundFood presenta una serie di sfide tecniche uniche nel contesto della riproduzione musicale nei ristoranti:
+\begin{enumerate}
+\item È necessario sviluppare un sistema di riproduzione musicale che si integri perfettamente con l'idea di creare esperienze sonore personalizzate per ogni tavolo. Questo richiede una soluzione flessibile e altamente personalizzabile.
+\item Implementazione su hardware a basso costo: L'utilizzo di dispositivi come il Raspberry Pi Zero 2W, sebbene economicamente vantaggioso, presenta limitazioni significative in termini di potenza di elaborazione e memoria disponibile. Il sistema deve essere ottimizzato per funzionare efficacemente su questo hardware limitato.
+\item Interfaccia utente intuitiva: Nonostante le limitazioni hardware, è cruciale sviluppare un'interfaccia utente reattiva e facile da usare. Questo è essenziale per garantire che sia i clienti che il personale del ristorante possano interagire facilmente con il sistema.
+\item Ottimizzazione delle prestazioni: Data la natura delle risorse limitate è fondamentale ottimizzare l'utilizzo della CPU e della memoria per garantire una riproduzione musicale fluida e senza interruzioni, mantenendo al contempo la capacità di gestire molteplici flussi audio indipendenti.
+\end{enumerate}
+
+Il mio progetto mira a superare queste sfide sviluppando un music player che sia non solo tecnicamente efficiente, ma anche perfettamente adatto alle esigenze uniche del concetto SoundFood. Questo richiede un approccio innovativo che bilanci le limitazioni hardware con la necessità di un'esperienza utente di alta qualità e prestazioni affidabili.
