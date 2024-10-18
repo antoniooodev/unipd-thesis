@@ -121,6 +121,53 @@ Nelle applicazioni pratiche, le bolle sonore vengono utilizzate per creare ambie
 
 Oltre che nei ristoranti, le bolle sonore trovano applicazione in vari spazi commerciali e pubblici, come musei, uffici e biblioteche, dove il controllo dell'ambiente uditivo è essenziale per migliorare l'esperienza degli utenti. Questi ambienti traggono vantaggio in quanto aiutano a bilanciare privacy, concentrazione e atmosfera senza ricorrere a un isolamento acustico completo.~\cite{cit-multiaudio}
 
+\section{Reti neurali artificiali per la previsione del gradimento alimentare}
+
+\subsection{Fondamenti e applicazioni delle reti neurali artificiali}
+\noindent
 
 
+Le reti neurali artificiali (ANN) sono modelli computazionali ispirati al funzionamento del cervello umano, composti da unità di elaborazione interconnesse chiamate neuroni artificiali. Nel contesto della previsione del gradimento alimentare, le ANN offrono un potente strumento per modellare relazioni complesse e non lineari tra variabili di input (come caratteristiche acustiche e non acustiche) e output (gradimento del cibo).
 
+L'architettura base di una ANN comprende uno strato di input, uno o più strati nascosti e uno strato di output. Ogni connessione tra i neuroni è associata a un peso $w_{ij}$, che viene ottimizzato durante la fase di addestramento della rete. La funzione di attivazione $\phi()$ introduce non linearità nel modello, permettendo alla rete di apprendere relazioni complesse. L'output di un neurone può essere espresso come:
+
+\[O^{(l)}_i = \phi(u^{(l)}_i) = \phi(\sum_{j=1}^{n_l} O^{(l-1)}_j w^{(l)}_{j,i} + w^{(l)}_{0,i}), 1 \leq l \leq L\]
+
+dove $O^{(l)}_i$ è l'output del neurone i nello strato l, $w^{(l)}_{j,i}$ è il peso della connessione tra il neurone j dello strato precedente e il neurone i dello strato corrente, e $w^{(l)}_{0,i}$ è il bias del neurone.~\cite{cit-FoodResearch}
+
+L'applicazione delle ANN nel campo della percezione alimentare ha guadagnato notevole attenzione, grazie alla loro capacità di modellare relazioni complesse tra stimoli sensoriali e risposte percettive. Nel contesto specifico del gradimento alimentare in presenza di rumore di fondo, le ANN offrono un approccio promettente per catturare le interazioni multimodali tra stimoli acustici e gustativi.
+
+\subsection{Modello \gls{ann} ottimizzato con \gls{hho}}
+\noindent
+
+Un modello \gls{ann} avanzato è stato proposto per prevedere il gradimento del cibo in presenza di diversi tipi e livelli di rumore di fondo. Questo modello, ottimizzato mediante l'algoritmo Harris Hawks Optimizer (\gls{hho}), ha dimostrato prestazioni superiori rispetto ai modelli \gls{ann} tradizionali e ai modelli statistici misti.
+
+L'architettura del modello \gls{ann}-\gls{hho} comprende uno strato di input con cinque neuroni, corrispondenti a età, genere, sensibilità al rumore, tipo di rumore e livello di rumore. Due strati nascosti, ciascuno con dieci neuroni, elaborano queste informazioni. Lo strato di output produce la previsione del gradimento relativo del cibo. Questa architettura è illustrata nella Figura 1 del documento di riferimento.
+
+L'algoritmo \gls{hho}, ispirato al comportamento cooperativo dei falchi di Harris durante la caccia, è utilizzato per ottimizzare i pesi e i bias della rete neurale. Il processo di ottimizzazione può essere descritto dalle seguenti equazioni:
+
+\[X(t+1) = \begin{cases} 
+   X_r(t) - r_1|X_r(t) - 2r_2X(t)| & q \geq 0.5 \\
+   X_b(t) - X_m(t) - r_3(lb + r_4(ub - lb)) & \text{altrimenti}
+\end{cases}\]
+
+\[E = 2E_0(1 - \frac{t}{T})\]
+
+Dove $X(t)$ rappresenta la posizione della soluzione al tempo $t$, $X_r$, $X_m$, e $X_b$ sono soluzioni random, media e migliore rispettivamente, $r_1$, $r_2$, $r_3$, $r_4$ sono numeri casuali, $q$ è una probabilità di cambio, $E$ è l'energia della preda, $E_0$ è il valore iniziale dell'energia, $t$ è l'iterazione corrente e $T$ è il numero massimo di iterazioni.
+
+L'ottimizzazione \gls{hho} ha dimostrato di migliorare significativamente le prestazioni del modello \gls{ann} rispetto ad altri metodi di ottimizzazione, inclusa l'ottimizzazione a sciame di particelle (PSO). Questa superiorità è attribuibile alla capacità dell'\gls{hho} di bilanciare efficacemente l'esplorazione globale e lo sfruttamento locale dello spazio delle soluzioni, consentendo al modello di convergere verso soluzioni ottimali più rapidamente e con maggiore precisione.
+
+\subsection{Implementazione e risultati del modello \gls{ann}-\gls{hho}}
+\noindent
+
+Il modello \gls{ann}-\gls{hho} è stato implementato utilizzando un dataset di 135 risposte, ottenute da 15 partecipanti che hanno valutato il gradimento del cibo in presenza di tre tipi di rumore a tre livelli diversi. I tipi di rumore considerati includevano musica rilassante, rumore di ristorante e rumore del traffico stradale, con livelli di 30, 40 e 50 dBA.
+
+La performance del modello è stata valutata utilizzando diverse metriche statistiche. I risultati mostrano che il modello \gls{ann}-\gls{hho} ha raggiunto prestazioni superiori ($R^2 = 0.70$, RMSE $= 0.8$) rispetto ai modelli \gls{ann} tradizionali ($R^2 = 0.61$, RMSE $= 1.1$) e ai modelli statistici misti ($R^2 = 0.42$, RMSE $= 1.8$). Questo significativo miglioramento nelle prestazioni sottolinea l'efficacia dell'approccio di ottimizzazione \gls{hho} nel contesto della previsione del gradimento alimentare. La Figura 4 del documento di riferimento illustra graficamente queste prestazioni.
+
+L'analisi dei risultati ha rivelato che i livelli di rumore tra 30 e 35 dBA producono il massimo gradimento relativo del cibo per diversi tipi di rumore. In particolare, un livello di 30 dBA ha dato il massimo gradimento relativo per la musica e il rumore di ristorante, mentre 35 dBA ha prodotto il massimo gradimento per il rumore del traffico stradale.
+
+Inoltre, l'analisi delle caratteristiche utilizzando l'algoritmo ``RReliefF'' ha mostrato che i fattori acustici, come il tipo e il livello di rumore, hanno un peso maggiore rispetto ai fattori non acustici nella previsione del gradimento del cibo. La Figura 6 del documento di riferimento illustra l'importanza relativa di questi fattori.
+
+È interessante notare che il modello ha previsto che la musica potrebbe ancora essere accettabile fino a un livello di 47 dBA, mentre il rumore del traffico stradale e il rumore del ristorante hanno prodotto valutazioni di gradimento del cibo significativamente negative a tutti i livelli studiati.
+
+Questi risultati forniscono preziose indicazioni per la gestione del rumore nelle aree di ristorazione e potrebbero contribuire a strategie più mirate per la valutazione e la mitigazione del rumore in questi ambienti.
