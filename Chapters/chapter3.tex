@@ -1,0 +1,89 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapter3.tex
+%% UNIPD thesis document file
+%%
+%% Chapter with introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE chapter3.tex}%
+
+\chapter{Fondamenti Teorici}
+\label{cha:introduzione}
+
+\prependtographicspath{{Chapters/Figures/Covers/}}
+
+\section{Sistemi embedded e IoT}
+
+\subsection{Introduzione ai sistemi embedded}
+\noindent
+
+I sistemi embedded sono sistemi di elaborazione integrati all'interno dell'oggetto o del sistema informatico, progettati per compiti specifici, che offrono un'elevata efficienza e un basso consumo energetico rispetto ai sistemi general-purpose. Sono sempre più utilizzati in applicazioni come l'elaborazione audio e i sistemi di controllo in tempo reale in vari ambienti, tra cui l'industria della ristorazione. Grazie alla loro flessibilità, questi sistemi possono integrarsi perfettamente in ambienti complessi dove l'affidabilità e la compattezza sono fattori critici.
+
+Nel contesto dei sistemi audio per ristoranti, le piattaforme embedded come Raspberry Pi sono ideali per gestire flussi audio in tempo reale, decodificare l'audio digitale e garantire uscite audio sincronizzate per le diverse zone di un ristorante, come i singoli tavoli.
+
+La loro scalabilità ed economicità le rendono adatte a implementare ambienti audio personalizzati in locali di medie e grandi dimensioni.
+
+
+\subsection{L'\gls{iot} in ambito ristorativo}
+\noindent
+
+L'\gls{iot} ha rivoluzionato il settore della ristorazione, consentendo ai dispositivi di interagire e scambiare dati in modo autonomo. Nei ristoranti intelligenti, i dispositivi \gls{iot} possono gestire tutto, dal servizio clienti al controllo dell'ambiente. Una delle applicazioni più innovative è l'uso dell'\gls{iot} per creare ambienti sonori personalizzati, o “bolle sonore”, dove ogni tavolo può avere il proprio percorso sonoro su misura.
+
+L'integrazione di sensori e dispositivi audio consente ai ristoranti di monitorare e regolare in tempo reale i livelli audio, il rumore ambientale e le preferenze dei clienti. Ad esempio, la musica di sottofondo può essere regolata automaticamente in base ai dati in tempo reale, come il feedback dei clienti o i livelli di rumore.
+
+Le tecnologie \gls{iot} in questo contesto offrono un'esperienza utente più fluida , aumentando la soddisfazione dei clienti e l'efficienza operativa.
+
+L'implementazione di queste tecnologie non si limita a migliorare l'esperienza audio nei ristoranti ma contribuisce anche a migliorare la sicurezza. I sensori  possono essere applicati per monitorare l'ambiente della cucina e inviare avvisi in caso di pericolo di incendio o possono monitorare le operazioni di cucina, rendendo il ristorante più reattivo ed efficiente.
+
+\subsection{Raspberry Pi come piattaforma per sistemi audio}
+\noindent
+
+Il Raspberry Pi è ampiamente riconosciuto come piattaforma ideale per i sistemi embedded nelle applicazioni audio, grazie al suo basso costo, alla versatilità e alla sufficiente potenza di elaborazione.
+
+In questo progetto di tesi, il Raspberry Pi Zero 2W viene utilizzato come unità di elaborazione centrale per gestire i flussi audio e distribuirli ai singoli dispositivi sul tavolo. Il sistema sfrutta Mopidy, un server di streaming basato su Python, insieme a Iris per i controlli frontend, consentendo la gestione in tempo reale di playlist e livelli audio. L'integrazione del Pi con \gls{dac} e \gls{gpio} consente inoltre di formare un'architettura di sistema flessibile che può essere ampliata con sensori o interfacce audio aggiuntive.
+
+Il supporto di Raspberry Pi per il multitasking e la sua capacità di gestire l'elaborazione in parallelo lo rendono uno dei migliori candidati per le attività di elaborazione audio in un ristorante, dove è necessario gestire in modo efficiente più canali.
+
+Inoltre, la compatibilità di questo dispositivo con varie librerie software,  consente al sistema di essere altamente personalizzabile e adattabile a diversi ambienti.
+
+\section{Tecnologie di streaming audio}
+
+\subsection{Panoramica delle tecnologie di streaming audio}
+\noindent
+
+Lo streaming audio si riferisce alla trasmissione in tempo reale di dati audio su una rete, consentendo agli utenti di ascoltare l'audio senza doverlo scaricare in locale. Questa tecnologia si basa su protocolli che gestiscono il flusso costante di pacchetti di dati tra server e client  per garantire una riproduzione fluida. Due dei protocolli più utilizzati sono il \gls{rtsp} e l'\gls{hls}.
+
+\begin{itemize}
+    \item \gls{rtsp} stabilisce e controlla uno o più flussi sincronizzati nel 
+          tempo di media continui, come audio. In genere non fornisce 
+          direttamente i flussi continui, anche se è possibile l'interleaving del 
+          flusso multimediale continuo con il flusso di controllo. In altre parole, 
+          \gls{rtsp} agisce come un ``telecomando di rete'' per i server 
+          multimediali.
+          
+    \item \gls{hls}, è un formato adattativo basato su \gls{http} per il trasporto 
+          di dati video e audio dai server multimediali agli schermi degli 
+          spettatori. I contenuti video e audio vengono suddivisi in una serie di 
+          pezzi, compressi per una consegna rapida e trasmessi ai dispositivi 
+          degli utenti finali. Gli spettatori godono quindi di uno streaming fluido, 
+          nonostante tutto ciò che accade in background. La popolarità di 
+          questo protocollo rispetto alle sue alternative è dovuta alla 
+          compatibilità della riproduzione e alla qualità dell'esperienza. Infatti, 
+          tutti i dispositivi Mac, Android, Microsoft e Linux sono in grado di 
+          riprodurre flussi trasmessi con \gls{hls}.
+  \end{itemize}
+
+Entrambi i protocolli sono essenziali per mantenere una trasmissione audio a bassa latenza e di alta qualità, particolarmente importante in scenari che richiedono la sincronizzazione di più flussi in zone diverse.
+
+\subsection{Mopidy: Architettura e caratteristiche}
+\noindent
+
+Mopidy è un servizio open-source  basato su Python, progettato per gestire e riprodurre audio sia in locale che online. Funziona come un server \gls{http}, consentendo agli utenti di controllare la musica attraverso interfacce web e altri dispositivi remoti. Mopidy viene spesso utilizzato in ambienti in cui è richiesto lo streaming audio multi-room, offrendo una soluzione flessibile e personalizzabile per spazi pubblici e privati. Questo sistema supporta diverse interfacce frontend, come Iris, e può integrarsi con piattaforme come Spotify, SoundCloud, e file system locali.
+
+Uno dei punti di forza di Mopidy è la sua architettura modulare, che consente agli sviluppatori di estendere le sue capacità attraverso un'ampia gamma di plugin. Questa modularità rende Mopidy altamente adattabile a diverse applicazioni, dalle configurazioni audio domestiche agli ambienti commerciali in cui l'audio deve essere trasmesso in più zone.
+
+L'uso dell'architettura client-server di Mopidy è particolarmente adatto alla gestione di più flussi audio in rete. Ogni client può essere collegato a una serie di altoparlanti, mentre il server gestisce la riproduzione del file audio. Mopidy spesso è abbinato a Snapcast, un altro strumento che sincronizza l'audio tra più client. Snapcast assicura che tutti i client rimangano sincronizzati, riproducendo lo stesso flusso audio senza ritardi evidenti. Questo sistema consente un controllo preciso sulla riproduzione audio in più luoghi, rendendolo ideale per spazi pubblici come scuole, uffici o campus di più edifici.
+
+Il server Mopidy può essere controllato da remoto utilizzando una varietà di interfacce, consentendo agli utenti di gestire playlist, controllare il volume e programmare la riproduzione utilizzando interfacce basate sul web e a riga di comando. Questa flessibilità rende Mopidy una soluzione molto efficace per gli ambienti in cui l'audio deve essere gestito da una postazione centrale.~\cite{cit-mopidy}
+
