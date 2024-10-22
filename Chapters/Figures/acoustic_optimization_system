@@ -1,0 +1,18 @@
+// Acoustic Optimization System
+digraph {
+	rankdir=TB size="8,8"
+	A [label="IoT Sensors
+(Microphones, Occupancy)"]
+	B [label="Data Preprocessing"]
+	C [label="ANN-HHO Model"]
+	D [label="Optimization Algorithm"]
+	E [label="Control System"]
+	F [label="Actuators
+(Speakers, Noise Control)"]
+	A -> B [label="Raw Data"]
+	B -> C [label="Processed Data"]
+	C -> D [label=Predictions]
+	D -> E [label="Optimization Parameters"]
+	E -> F [label="Control Signals"]
+	F -> A [label="Feedback Loop" constraint=false]
+}
