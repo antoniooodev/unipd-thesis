@@ -33,7 +33,7 @@ Per consentire l’accesso remoto al server e la gestione della riproduzione mus
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{Chapters/Figures/3d_render_2w.png}
-    \caption{\small Raspberry Pi Zero 2w 3d render.} 
+    \caption{\small Raspberry Pi Zero 2W.} 
     \label{fig:zero2w_3d_render}
 \end{figure}
 
@@ -47,3 +47,83 @@ Per consentire l’accesso remoto al server e la gestione della riproduzione mus
 \end{figure}
 
 \end{comment}
+
+\section{Stack Software e Componenti}
+\noindent
+
+Snapcast si presenta come una soluzione avanzata per la gestione dell'audio in ambienti multipli.  Si tratta di un sistema client-server progettato specificamente per configurazioni che coinvolgono più stanze, dove la sincronizzazione tra server e client è fondamentale per garantire una riproduzione audio simultanea. È importante notare che Snapcast non è concepito come un player autonomo, ma piuttosto come un'estensione che trasforma un comune player audio in un sistema più complesso, capace di espandere le potenzialità di un semplice Home Theater dalla limitazione di una singola stanza all'intera struttura.
+
+Il funzionamento di Snapcast è particolarmente interessante dal punto di vista tecnico. Il server agisce come punto centrale di raccolta dell'audio, che viene poi distribuito ai vari client connessi. Una caratteristica notevole è la sua flessibilità: il sistema può gestire contemporaneamente più player che trasmettono audio in parallelo al server, e offre la possibilità di raggruppare i client per la riproduzione dello stesso flusso audio. Questa versatilità lo rende particolarmente adatto all'integrazione con sistemi come \gls{mpd} o Mopidy, che rappresentano infatti una delle sue applicazioni più comuni.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Chapters/Figures/snapcast_client.png}
+    \caption{\small Snapcast muti room audio setup.} 
+    \label{fig:snapcast_client}
+\end{figure}
+
+Il processo di trasmissione dati in Snapcast è stato accuratamente progettato per garantire efficienza e sincronizzazione. I dati audio vengono inviati sotto forma di frammenti criptati attraverso una connessione \gls{tcp} sicura. Ogni client mantiene una sincronizzazione costante con il server, garantendo così una perfetta coordinazione temporale. Quando i frammenti audio raggiungono il client, vengono prima decodificati e inseriti in un buffer dedicato, per poi essere riprodotti al momento esatto attraverso \gls{api} audio di basso livello, come ALSA. Un aspetto particolarmente sofisticato è la gestione della latenza: il sistema è in grado di correggere eventuali ritardi rimuovendo o duplicando singoli campioni audio per ottimizzare la velocità di riproduzione, con una precisione tale che ogni campione a 48kHz ha una durata di appena 0.02 millisecondi.
+
+Il secondo componente fondamentale del sistema è Mopidy, un'applicazione sviluppata in Python che si distingue per la sua versatilità e facilità d'uso. Può essere eseguita sia in un terminale che in background su qualsiasi computer Linux o Mac connesso alla rete, offrendo una flessibilità notevole nell'implementazione. Mopidy si presenta con un server \gls{http} già pronto all'uso, e grazie all'estensione Mopidy \gls{mpd} , può funzionare anche come server \gls{mpd} completo. Una delle sue caratteristiche più apprezzabili è la vasta gamma di frontend disponibili come estensioni, che permettono di controllare il sistema in modi diversi.
+
+La compatibilità universale di Mopidy con i principali sistemi operativi, unita alla possibilità di controllarlo da qualsiasi dispositivo - che sia un telefono, un tablet o un computer - attraverso il browser web o il client MPD, lo rende una scelta ideale per un sistema di diffusione audio distribuito come quello richiesto dal progetto delle “bolle sonore” dedicato alla ristorazione.
+
+Questa combinazione di Snapcast e Mopidy crea quindi una base solida e flessibile per l'implementazione di un sistema audio multi-room efficiente e affidabile, capace di soddisfare le esigenze specifiche del progetto mantenendo al contempo un'elevata qualità di riproduzione e sincronizzazione.
+
+\section{Implementazione del Backend}
+\noindent
+
+
+L'implementazione del backend concerne la configurazione e lo sviluppo dei componenti server del sistema di streaming. Il server centrale, costruito su Raspberry Pi, ospita sia Snapserver che Mopidy, offrendo i servizi necessari per la gestione e la distribuzione dei flussi audio ai client.
+
+\subsection{Configurazione del Server}
+
+Il server principale, posizionato fisicamente nella sala server, richiede una configurazione specifica dell'indirizzo IP statico per garantire una connessione stabile e affidabile. Il sistema è stato configurato con Mopidy per la gestione delle sorgenti audio e della libreria musicale. Il file di configurazione di Mopidy è stato personalizzato per ottimizzare la gestione dell'audio:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapters/Figures/snap_code_audio.png}
+    \caption{\small Esempio di configurazione della pipeline audio di Mopidy.} 
+    \label{fig:snap_code_audio}
+\end{figure}
+
+Questa configurazione permette di convertire e ricampionare l'audio a 48kHz con una profondità di 16 bit, garantendo un buon compromesso tra qualità e larghezza di banda. L'output viene diretto a un file FIFO che funge da buffer tra Mopidy e Snapcast.
+
+Snapserver è stato configurato per leggere da questo buffer e gestire la distribuzione dei flussi audio. Il sistema di buffering è stato ottimizzato per ridurre la latenza mantenendo una riproduzione stabile. Entrambi i servizi sono stati configurati per l'avvio automatico attraverso systemd, garantendo la ripresa automatica del servizio in caso di riavvio del sistema.
+
+Questa configurazione consente la conversione e il ricampionamento dell'audio a una frequenza di 48 kHz e a una profondità di 16 bit, assicurando un equilibrato compromesso tra qualità del suono e utilizzo della larghezza di banda. L'output audio viene inviato a un file \gls{fifo}, che svolge il ruolo di buffer tra Mopidy e Snapcast.
+
+Snapserver è stato configurato per acquisire i dati da questo buffer e gestire la distribuzione dei flussi audio. È stata prestata particolare attenzione all'ottimizzazione del sistema di buffering al fine di minimizzare la latenza, garantendo al contempo una riproduzione fluida. Inoltre, entrambi i servizi sono stati impostati per avviarsi automaticamente tramite systemd, assicurando una ripresa del servizio immediata in caso di riavvio del sistema.
+
+\subsection{Configurazione del Client}
+
+I dispositivi client sono Raspberry Pi Zero 2W configurati con Snapclient per ricevere e riprodurre i flussi audio. Ogni client mantiene nel proprio file di configurazione l'indirizzo \gls{ip} del server, assicurando una connessione automatica all'avvio del sistema. La configurazione fondamentale di Snapclient è definita nel file di configurazione:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{Chapters/Figures/snap_client_example.png}
+    \caption{\small Esempio di configurazione base di Snapclient.} 
+    \label{fig:snap_client_example}
+\end{figure}
+
+La configurazione audio utilizza \gls{alsa} come backend audio predefinito, garantendo una bassa latenza e una buona compatibilità con l'hardware. Il buffer audio viene configurato con dimensioni ottimizzate per bilanciare latenza e stabilità di riproduzione:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.15\textwidth]{Chapters/Figures/snap_buffer_audio.png}
+    \caption{\small Configurazione del buffer audio di Snapclient} 
+    \label{fig:snap_buffer_audio}
+\end{figure}
+
+Il sistema implementa anche una gestione automatica degli errori: in caso di perdita di connessione, i client tentano automaticamente di riconnettersi al server. La sincronizzazione audio tra i client viene mantenuta attraverso un sistema di timestamp, permettendo una riproduzione perfettamente sincronizzata in tutte le zone.
+Per garantire l'avvio automatico del servizio, Snapclient viene configurato come servizio systemd:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Chapters/Figures/snap_service_audio.png}
+    \caption{\small Configurazione del servizio Snapclient} 
+    \label{fig:snap_service_audio}
+\end{figure}
+
+\section{Implementazione del Frontend}
+\noindent
