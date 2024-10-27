@@ -80,12 +80,12 @@ L'implementazione del backend concerne la configurazione e lo sviluppo dei compo
 
 Il server principale, posizionato fisicamente nella sala server, richiede una configurazione specifica dell'indirizzo IP statico per garantire una connessione stabile e affidabile. Il sistema è stato configurato con Mopidy per la gestione delle sorgenti audio e della libreria musicale. Il file di configurazione di Mopidy è stato personalizzato per ottimizzare la gestione dell'audio:
 
-\begin{figure}[H]
+\begin{table}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Chapters/Figures/snap_code_audio.png}
     \caption{\small Esempio di configurazione della pipeline audio di Mopidy.} 
     \label{fig:snap_code_audio}
-\end{figure}
+\end{table}
 
 Questa configurazione permette di convertire e ricampionare l'audio a 48kHz con una profondità di 16 bit, garantendo un buon compromesso tra qualità e larghezza di banda. L'output viene diretto a un file FIFO che funge da buffer tra Mopidy e Snapcast.
 
@@ -99,32 +99,217 @@ Snapserver è stato configurato per acquisire i dati da questo buffer e gestire 
 
 I dispositivi client sono Raspberry Pi Zero 2W configurati con Snapclient per ricevere e riprodurre i flussi audio. Ogni client mantiene nel proprio file di configurazione l'indirizzo \gls{ip} del server, assicurando una connessione automatica all'avvio del sistema. La configurazione fondamentale di Snapclient è definita nel file di configurazione:
 
-\begin{figure}[H]
+\begin{table}[H]
     \centering
     \includegraphics[width=0.2\textwidth]{Chapters/Figures/snap_client_example.png}
     \caption{\small Esempio di configurazione base di Snapclient.} 
     \label{fig:snap_client_example}
-\end{figure}
+\end{table}
 
 La configurazione audio utilizza \gls{alsa} come backend audio predefinito, garantendo una bassa latenza e una buona compatibilità con l'hardware. Il buffer audio viene configurato con dimensioni ottimizzate per bilanciare latenza e stabilità di riproduzione:
 
-\begin{figure}[H]
+\begin{table}[H]
     \centering
     \includegraphics[width=0.15\textwidth]{Chapters/Figures/snap_buffer_audio.png}
     \caption{\small Configurazione del buffer audio di Snapclient} 
     \label{fig:snap_buffer_audio}
-\end{figure}
+\end{table}
 
 Il sistema implementa anche una gestione automatica degli errori: in caso di perdita di connessione, i client tentano automaticamente di riconnettersi al server. La sincronizzazione audio tra i client viene mantenuta attraverso un sistema di timestamp, permettendo una riproduzione perfettamente sincronizzata in tutte le zone.
 Per garantire l'avvio automatico del servizio, Snapclient viene configurato come servizio systemd:
 
-\begin{figure}[H]
+\begin{table}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Chapters/Figures/snap_service_audio.png}
     \caption{\small Configurazione del servizio Snapclient} 
     \label{fig:snap_service_audio}
-\end{figure}
+\end{table}
 
 \newpage
 \section{Implementazione del Frontend}
 \noindent
+
+L'implementazione frontend del sistema di streaming audio rappresenta l'interfaccia attraverso cui gli utenti interagiscono con il sistema. La scelta di React come framework principale è stata dettata dalla necessità di creare un'interfaccia reattiva e modulare, capace di gestire efficientemente lo stato dell'applicazione e di mantenere una comunicazione in tempo reale con i servizi backend Mopidy e Snapcast.
+
+\subsection{Architettura dell'Applicazione}
+
+L'architettura frontend è stata progettata seguendo il pattern di gestione dello stato centralizzato tramite Redux, dove ogni componente può accedere e modificare lo stato globale dell'applicazione attraverso azioni predefinite. Questa scelta architetturale permette di mantenere uno stato coerente dell'applicazione nonostante la complessità delle interazioni tra i diversi componenti.
+
+La struttura dell'applicazione è organizzata in moduli distinti:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Chapters/Figures/frontend_structure.png}
+    \caption{\small Parte della struttura del frontend.}
+    \label{fig:frontend_structure}
+\end{table}
+
+Il cuore dell'interfaccia utente è rappresentato dal componente \texttt{PlaybackControls}, che gestisce tutte le interazioni dirette con il flusso audio. Il componente utilizza gli hooks di React per mantenere il proprio stato locale e si connette allo store Redux per accedere allo stato globale dell'applicazione:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapters/Figures/playbackcontrols.png}
+    \caption{\small Parte della struttura del file \texttt{PlaybackControls.js}.}
+    \label{fig:playbackcontrols}
+\end{table}
+
+\newpage
+Il componente implementa un timer che aggiorna la posizione di riproduzione ogni secondo quando una traccia è in riproduzione:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Chapters/Figures/timer_control.png}
+    \caption{\small}
+    \label{fig:timer_control}
+\end{table}
+
+Questa implementazione permette un'esperienza utente fluida senza sovraccaricare il server con continue richieste di aggiornamento della posizione.
+
+
+\subsection{Sincronizzazione Multi-Room}
+
+L'aspetto più innovativo dell'implementazione riguarda la gestione della sincronizzazione multi-room attraverso Snapcast. Il sistema permette di creare "zone audio" indipendenti, ognuna con il proprio controllo del volume e la propria sorgente audio, mantenendo una perfetta sincronizzazione tra tutti i client connessi.
+
+L'implementazione della gestione client è realizzata attraverso un sistema di azioni Redux che comunicano con il server Snapcast:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Chapters/Figures/client_gestures.png}
+    \caption{\small}
+    \label{fig:client_gestures}
+\end{table}
+
+Ogni client può essere configurato individualmente:
+
+\begin{itemize}
+    \item Volume e stato mute indipendenti
+    \item Latenza personalizzabile per compensare ritardi di rete
+    \item Assegnazione a gruppi specifici
+\end{itemize}
+
+I gruppi rappresentano zone audio logiche che possono contenere più client. L'implementazione prevede:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Chapters/Figures/group_component.png}
+    \caption{\small}
+    \label{fig:group_component}
+\end{table}
+
+Questa implementazione garantisce che le modifiche del volume di gruppo vengano applicate proporzionalmente a tutti i client membri, mantenendo le proporzioni relative tra i volumi dei singoli client.
+
+\subsection{Comunicazione con il Backend}
+
+La comunicazione con i servizi backend avviene attraverso due middleware specializzati: uno per Mopidy e uno per Snapcast. Ogni middleware implementa il proprio protocollo di comunicazione e gestisce le specifiche esigenze del servizio corrispondente.
+
+\texttt{Middleware Mopidy:}
+
+Il middleware Mopidy stabilisce una connessione WebSocket con il server e gestisce tutti gli eventi relativi alla riproduzione audio:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Chapters/Figures/middleware_mopidy.png}
+    \caption{\small}
+    \label{fig:middleware_mopidy}
+\end{table}
+
+Il middleware implementa anche un sistema di gestione degli errori e riconnessione automatica per garantire la robustezza del servizio.
+
+\newpage
+\texttt{Middleware Snapcast:}
+
+Il middleware Snapcast utilizza il protocollo \gls{json-rpc} per comunicare con il server:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapters/Figures/middleware_snapcast.png}
+    \caption{\small}
+    \label{fig:middleware_snapcast}
+\end{table}
+
+La gestione degli eventi Snapcast è particolarmente sofisticata, dovendo gestire:
+
+\begin{itemize}
+    \item Connessione/disconnessione dei client
+    \item Modifiche di volume e latenza
+    \item Aggiornamenti dei gruppi
+    \item Stato degli stream
+\end{itemize}
+
+La gestione di un sistema di streaming audio multi-room presenta una complessità elevata, richiedendo un sistema di controllo dello stato che assicuri prestazioni ottimali e consistenza dei dati. L'implementazione utilizza Redux come soluzione per il state management, con particolare attenzione sulla scalabilità e sulla reattività dell'interfaccia.
+
+Lo store Redux è stato progettato seguendo il principio della separazione delle responsabilità, dividendo lo stato in tre domini principali:
+
+\begin{itemize}
+    \item \texttt{Stato Mopidy:} gestisce tutti gli aspetti relativi alla riproduzione audio.
+            \begin{table}[H]
+                \centering
+                \includegraphics[width=0.4\textwidth]{Chapters/Figures/stato_mopidy.png}
+                \caption{\small}
+                \label{fig:stato_mopidy}
+            \end{table}
+    \item \texttt{Stato Snapcast:} gestisce la sincronizzazione multi-room.
+        \begin{table}[H]
+            \centering
+            \includegraphics[width=0.4\textwidth]{Chapters/Figures/stato_snapcast.png}
+            \caption{\small}
+            \label{fig:stato_snapcast}
+        \end{table}
+    \item \texttt{Stato UI:} gestisce l'interfaccia utente e le preferenze
+        \begin{table}[H]
+            \centering
+            \includegraphics[width=0.35\textwidth]{Chapters/Figures/stato_UI.png}
+            \caption{\small}
+            \label{fig:stato_UI}
+        \end{table}
+\end{itemize}
+
+\subsection{Gestione dello Stato nell'Interfaccia Utente}
+
+L'interfaccia utente del sistema di streaming richiede una gestione efficace dello stato per garantire una visualizzazione coerente e reattiva delle informazioni. Attraverso l'utilizzo di Redux come gestore dello stato, come già detto in precedenza, l'interfaccia mantiene sincronizzati tutti i componenti visuali con lo stato corrente del sistema.
+
+L'interfaccia grafica è particolarmente sensibile ai cambiamenti di stato in tre aree principali:
+
+\begin{itemize}
+    \item \texttt{Play/Pause:} visualizzazione del corretto stato del player
+    \item \texttt{Volume:} posizione del cursore del volume e stato mute
+    \item \texttt{Progresso:} posizione nella traccia corrente
+    \item \texttt[Metadata:] informazioni sulla traccia in riproduzione
+\end{itemize}
+
+La seconda area concerne la visualizzazione dello stato Snapcast, dove l'interfaccia deve mostrare:
+
+\begin{itemize}
+    \item Lista dei client connessi e il loro stato
+    \item Gruppi di riproduzione e loro configurazione
+    \item Volume individuale per ogni client
+    \item Stato della sincronizzazione
+\end{itemize}
+
+Infine, l'interfaccia gestisce lo stato delle preferenze utente:
+
+\begin{itemize}
+    \item Tema dell'applicazione
+    \item Layout preferito
+    \item Ultime ricerche effettuate
+    \item Playlist recenti
+\end{itemize}
+
+La gestione di questi stati nell'interfaccia è implementata attraverso componenti React che si aggiornano automaticamente in risposta ai cambiamenti. Per esempio, il componente dei controlli di riproduzione si mantiene sincronizzato con lo stato attraverso l'uso degli hooks di Redux:
+
+\begin{table}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Chapters/Figures/hooks_redux.png}
+    \caption{\small}
+    \label{fig:hooks_redux}
+\end{table}
+
+Questo approccio garantisce che l'interfaccia rimanga sempre coerente con lo stato effettivo del sistema, fornendo un feedback immediato alle azioni dell'utente.
+
+\begin{comment}
+
+\subsection{Gestione degli Errori nell'Interfaccia}
+
+Nel contesto dell'interfaccia utente, la gestione degli errori si concentra sulla presentazione appropriata dei problemi all'utente e sul mantenimento della funzionalità dell'interfaccia anche in presenza di errori.
+
+\end{comment}
