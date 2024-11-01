@@ -455,7 +455,7 @@ L'interfaccia grafica è particolarmente sensibile ai cambiamenti di stato in tr
     \item \texttt{Play/Pause:} visualizzazione del corretto stato del player
     \item \texttt{Volume:} posizione del cursore del volume e stato mute
     \item \texttt{Progresso:} posizione nella traccia corrente
-    \item \texttt[Metadata:] informazioni sulla traccia in riproduzione
+    \item \texttt{Metadata:} informazioni sulla traccia in riproduzione
 \end{itemize}
 
 La seconda area concerne la visualizzazione dello stato Snapcast, dove l'interfaccia deve mostrare:
@@ -502,14 +502,18 @@ Nel contesto dell'interfaccia utente, la gestione degli errori si concentra sull
 
 \end{comment}
 
-\section{Test e Performance}
+\newpage
+\subsection{Test e Performance}
 \noindent
+
+\begin{comment}
 
 La sezione sul testing descrive un processo accurato di valutazione che ha coinvolto entrambe le soluzioni sviluppate, fornendo una panoramica dettagliata delle loro prestazioni in varie condizioni operative.
 
-\begin{comment}
-        Balena Sound
-\end{comment}
+
+ Balena Sound
+
+
 
 Il testing del sistema basato su Mopidy e Snapcast è stato articolato in due fasi distinte e strutturate. Nella prima fase, è stata implementata una configurazione base composta da un server e due client all'interno della rete locale. Il server, configurato con un indirizzo IP statico, era accessibile sia tramite LAN che connessione Wi-Fi, facilitando l'accesso ai client. Un aspetto particolarmente positivo di questa configurazione è stata la semplicità con cui i client si collegavano al server senza necessità di attraversare portali aggiuntivi, semplificando l'architettura del sistema.
 
@@ -518,3 +522,22 @@ Durante questa prima fase di test, sono state verificate con successo diverse fu
 La seconda fase dei test ha ampliato la configurazione del sistema con l’aggiunta di tre client supplementari. L'obiettivo principale di questa fase era verificare la capacità del sistema di gestire la trasmissione automatica di file audio specifici tra i client a orari predefiniti e su base regolare. Per raggiungere questo obiettivo, è stato implementato un sistema di programmazione tramite cron o scheduler. Un aspetto tecnico cruciale emerso in questa fase riguardava la gestione del FIFO (First In First Out): per garantirne la continua attivazione, il comando di abilitazione è stato integrato nello scheduler, riducendo la necessità di interventi manuali e minimizzando il rischio di errori umani.
 
 I risultati dei test hanno evidenziato chiaramente la superiorità della soluzione Mopidy/Snapcast rispetto all'alternativa Balena Sound. Il sistema ha dimostrato prestazioni costanti e affidabili anche in configurazioni multi-client più complesse, mostrando una robustezza adeguata a soddisfare i requisiti del progetto. La stabilità del sistema e la sua capacità di gestire automaticamente le trasmissioni programmate confermano la validità della scelta tecnologica effettuata, garantendo una diffusione audio efficace e sincronizzata.
+
+\end{comment}
+
+\subsection{Analisi delle Performance su Single-Client}
+
+L'analisi delle performance del sistema implementato su DietPi ha evidenziato risultati significativi in termini di efficienza e stabilità. I test sono stati condotti monitorando con attenzione l’utilizzo delle risorse di sistema in diverse condizioni operative, all'interno di un contesto single-client.
+
+Durante le operazioni di base, quali navigazione nell’interfaccia, gestione delle playlist ed esplorazione della libreria musicale, il sistema ha mantenuto un utilizzo della CPU compreso tra il 3\% e il 12\%, dimostrando un’eccellente ottimizzazione delle operazioni di routine. Questo intervallo suggerisce una risposta fluida dell’interfaccia senza un sovraccarico eccessivo delle risorse di sistema.
+
+Per quanto riguarda la riproduzione audio, è stato rilevato un prevedibile incremento nell’utilizzo della CPU, oscillante tra il 20\% e il 30\%. È particolarmente significativo notare come queste percentuali rimangano stabili anche durante la riproduzione di file audio di grandi dimensioni (circa 40 MB). Tale comportamento riflette un’efficace gestione dello streaming e della decodifica audio, senza cali di prestazione nelle sessioni di riproduzione prolungate.
+
+Un ulteriore aspetto notevole emerso dai test riguarda la gestione della memoria, con un consumo costante di circa 150 MB, indipendentemente dal carico di lavoro. Questa stabilità è stata osservata sia nelle operazioni di base sia durante la riproduzione audio, suggerendo un’implementazione robusta e ottimizzata nella gestione delle risorse di sistema.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Chapters/Figures/performance_single_client.png}
+  \caption{\small Performance of Audio Streaming System on DietPi} 
+  \label{fig:performance_single_client}
+\end{figure}
