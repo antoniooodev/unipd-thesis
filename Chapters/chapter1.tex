@@ -13,38 +13,44 @@
 
 \prependtographicspath{{Chapters/Figures/Covers/}}
 
-\section{Informazioni di Base}
+\section{Introduzione all’acustica nella ristorazione}
 
 \subsection{L'importanza dell'ambiente acustico nella ristorazione}
 \noindent
 
 Negli ultimi anni, il settore della ristorazione ha visto una crescente attenzione verso l'esperienza complessiva del cliente, che va ben oltre la semplice qualità del cibo. Tra i vari fattori che influenzano questa esperienza, l'ambiente acustico gioca un ruolo cruciale, spesso sottovalutato. Il rumore di fondo in un ristorante può significativamente alterare la percezione del gusto e il godimento complessivo del pasto.
 
-Studi recenti nel campo della psicoacustica hanno dimostrato come diversi livelli e tipi di suono possano influenzare la percezione del sapore e l'appetito. Tuttavia, la gestione dell'acustica in un ristorante presenta sfide uniche: mentre alcuni clienti potrebbero preferire un'atmosfera vivace, altri potrebbero desiderare un ambiente più tranquillo per una conversazione intima.
+Studi recenti nel campo della psicoacustica hanno dimostrato come diversi livelli e tipi di suono possano influenzare la percezione del sapore e l'appetito. Tuttavia, la gestione dell'acustica in un ristorante presenta sfide non banali: mentre alcuni clienti potrebbero preferire un'atmosfera vivace, altri potrebbero desiderare un ambiente più tranquillo per una conversazione intima.
 
 In questo contesto, emerge l'idea innovativa di creare microambienti sonori personalizzati all'interno dello stesso spazio ristorativo. Questa soluzione permetterebbe di adattare l'esperienza acustica alle preferenze individuali dei clienti, ottimizzando al contempo l'atmosfera generale del locale. L'avvento tecnologico offre nuove possibilità per realizzare questo concetto, aprendo la strada a una rivoluzione nell'design acustico dei ristoranti.
 
-\subsection{L'evoluzione della tecnologia audio negli spazi pubblici TOO CHANGE}
+\subsection{L'evoluzione storica della tecnologia audio negli spazi pubblici}
 \noindent
 
-L'evoluzione tecnologia dell’audio ha trasformato radicalmente la gestione del suono negli spazi pubblici, compreso il settore della ristorazione. Questa avanzamento tecnologico può essere tracciata attraverso diverse fasi chiave.
+L’evoluzione delle tecnologie audio ha trasformato radicalmente la gestione dei suoni negli spazi pubblici, incluso il settore della ristorazione, consentendo il controllo e la personalizzazione dell’ambiente acustico.
 
-L’avvento della registrazione elettrica negli anni '20 del secolo scorso segnò l'inizio di una nuova era nella riproduzione sonora. Questo progresso portò a una maggiore consapevolezza dell'ambiente sonoro, anche se inizialmente più nel contesto della produzione musicale che in quello della ristorazione.
+L’introduzione della registrazione elettrica agli inizi del XX secolo, in particolare con lo sviluppo del microfono a carbone e dei sistemi di amplificazione a valvole, ha reso possibile la diffusione del suono su larga scala, sensibilizzando le industrie alla progettazione sonora per gli spazi aperti. In questi primi sviluppi, il focus era rivolto a una semplice amplificazione del suono, senza possibilità di personalizzazione.
 
-Negli anni '50 vennero introdotti i riverberi artificiali, dispositivi utilizzati per simulare acusticamente l'effetto della riflessione del suono in uno spazio chiuso, aprendo nuove possibilità per la manipolazione del suono.
+Negli anni ’50, l’avvento dei riverberi artificiali ha segnato un ulteriore passo avanti, con dispositivi che simulavano le riflessioni sonore tipiche di ambienti come sale da concerto o teatri, rendendo possibile la manipolazione del suono anche in contesti meno tradizionali. Questo approccio ha gettato le basi per un uso strategico dell’acustica, anche in luoghi non esclusivamente dedicati alla musica. I riverberi meccanici, come quelli del famoso sistema Hammond, introdotti tra gli anni ’60 e ’70, hanno esteso questa capacità, rendendo possibile un’acustica di alta qualità anche in locali con limitazioni strutturali. \cite{liquidsonics_reverb, wired1997}
 
-Successivamente, a cavallo tra gli '60 e '70, emersero i primi dispositivi elettromeccanici progettati per generare effetti audio, come il riverbero di Hammond che offrì nuove possibilità creative nella manipolazione del suono anche in contesti non musicali.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Chapters/Figures/hammond_reverb.png}
+    \caption{\small Rappresentazione schematica del riverbero a molla Hammond. Il diagramma illustra il principio di funzionamento attraverso i trasduttori di input e output collegati da una molla elicoidale, che converte le vibrazioni meccaniche in ritardi temporali del segnale audio.}
+    \label{fig:hammond_reverb}
+\end{figure}
 
-La rivoluzione digitale degli anni '80 e '90, con l'introduzione dei  \gls{dsp}, portò a una sofisticazione senza precedenti. Questa evoluzione tecnologica ha aperto la strada a sistemi audio più avanzati e personalizzabili, applicabili in vari contesti, inclusi i ristoranti.
+Con la rivoluzione digitale degli anni ’80, i \gls{dsp} hanno trasformato l’elaborazione del suono, rendendo possibile il controllo dettagliato di ogni aspetto acustico: dall’equalizzazione alla gestione multi-canale. Questi processori digitali, in grado di analizzare e modificare il segnale audio in tempo reale, hanno reso l’audio un elemento dinamico e flessibile, consentendo di adattare le caratteristiche sonore alle esigenze di ogni ambiente. 
 
-Nell'ultimo ventennio c'è stata una crescente consapevolezza dell'importanza dell'acustica nei ristoranti. L'introduzione del \gls{crai} in Nuova Zelanda, ad esempio, ha evidenziato come la qualità acustica sia diventata un fattore critico nella valutazione complessiva dell'esperienza di ristorazione.
+Nei ristoranti moderni, i \gls{dsp} permettono oggi di bilanciare la diffusione sonora su più aree, creando “bolle sonore” indipendenti che favoriscono un’esperienza differenziata per i clienti a seconda delle zone.
 
-Recenti studi hanno evidenziato l'importanza dell'ambiente sonoro nei ristoranti, distinguendo tra suoni di sottofondo, suoni fisici e suoni situazionali. Il loro studio ha dimostrato come questi diversi tipi di suono influenzino la soddisfazione del cliente, evidenziando la necessità di un approccio olistico alla gestione dell'audio negli spazi di ristorazione.
+Negli ultimi decenni, con la diffusione di sistemi embedded e dispositivi programmabili a basso costo come il Raspberry Pi, la personalizzazione dell’ambiente acustico è diventata accessibile e scalabile.
 
-Oggi, l'integrazione di tecnologie \gls{iot} e AI sta portando allo sviluppo di sistemi audio adattivi e intelligenti, capaci di rispondere in tempo reale alle condizioni ambientali e alle preferenze dei vari utenti. 
+Questi sistemi permettono ora di implementare configurazioni audio avanzate senza i costi elevati di infrastrutture dedicate, aprendo la strada alla gestione di ambienti multi-room sincronizzati e adattabili alle esigenze dei clienti. Nel contesto ristorativo, questa evoluzione consente di creare ambienti sonori che migliorano la percezione del gusto e favoriscono il comfort, migliorando complessivamente l’esperienza del cliente.
 
-La sfida attuale consiste nell'integrare queste tecnologie in modo armonico, creando ambienti sonori che migliorino l'esperienza culinaria senza risultare invasivi. Il nostro progetto si inserisce in questo contesto, mirando a sviluppare un sistema di streaming audio personalizzato che possa contribuire a ottimizzare l'ambiente acustico nei ristoranti.
+La sfida attuale consiste nell'integrare queste tecnologie in modo armonico, creando ambienti sonori che migliorino l'esperienza culinaria senza risultare invasivi. Questo progetto si inserisce in questo contesto, mirando a sviluppare un sistema di streaming audio personalizzato che possa contribuire a ottimizzare l'ambiente acustico nei ristoranti.
 
+\begin{comment}
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}[mindmap, grow cyclic, every node/.style={concept, execute at begin node=\hskip0pt}, concept color=blue!40, text=black, level 1/.append style={level distance=4.5cm,sibling angle=51.4285714}, level 2/.append style={level distance=3cm}, scale=0.5, transform shape]
@@ -69,15 +75,32 @@ La sfida attuale consiste nell'integrare queste tecnologie in modo armonico, cre
     \caption{Evoluzione della tecnologia audio nel corso del tempo.}
 \end{figure}
 
-\section{Il problema}
+\end{comment}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Chapters/Figures/new_timeline.png}
+    \caption{\small Evoluzione della tecnologia audio nel corso del tempo.}
+    \label{fig:new_timeline}
+\end{figure}
+
+
+\section{Problematiche acustiche nei contesti ristorativi}
 \noindent
 
-Il concetto innovativo di "bolla sonora personalizzata" di SoundFood presenta una serie di sfide tecniche uniche nel contesto della riproduzione musicale nei ristoranti:
-\begin{enumerate}
-\item È necessario sviluppare un sistema di riproduzione musicale che si integri perfettamente con l'idea di creare esperienze sonore personalizzate per ogni tavolo. Questo richiede una soluzione flessibile e altamente personalizzabile.
-\item Implementazione su hardware a basso costo: L'utilizzo di dispositivi come il Raspberry Pi Zero 2W, sebbene economicamente vantaggioso, presenta limitazioni significative in termini di potenza di elaborazione e memoria disponibile. Il sistema deve essere ottimizzato per funzionare efficacemente su questo hardware limitato.
-\item Interfaccia utente intuitiva: Nonostante le limitazioni hardware, è cruciale sviluppare un'interfaccia utente reattiva e facile da usare. Questo è essenziale per garantire che sia i clienti che il personale del ristorante possano interagire facilmente con il sistema.
-\item Ottimizzazione delle prestazioni: Data la natura delle risorse limitate è fondamentale ottimizzare l'utilizzo della CPU e della memoria per garantire una riproduzione musicale fluida e senza interruzioni, mantenendo al contempo la capacità di gestire molteplici flussi audio indipendenti.
-\end{enumerate}
+La qualita dell'acustica nei ristoranti rappresenta una componente fondamentale per determinare la soddisfazione dei clienti, influenzando aspetti come la permanenza, la percezione del gusto e, piu in generale, l'esperienza complessiva. Diversi studi hanno dimostrato che l'eccesso di rumore e spesso motivo di lamentele da parte dei clienti, al pari o anche oltre la qualita del cibo e del servizio, segnalando quanto il comfort acustico sia determinante per il successo di un'attivita ristorativa. \cite{6031600}
 
-Il mio progetto mira a superare queste sfide sviluppando un music player che sia non solo tecnicamente efficiente, ma anche perfettamente adatto alle esigenze uniche del concetto SoundFood. Questo richiede un approccio innovativo che bilanci le limitazioni hardware con la necessità di un'esperienza utente di alta qualità e prestazioni affidabili.
+Nei ristoranti, l'utilizzo diffuso di materiali riflettenti come vetro, piastrelle e metallo crea superfici che amplificano il rumore di fondo, prolungando il tempo di riverberazione e riducendo l'intelligibilita del parlato. Questo fenomeno acustico induce spesso i clienti ad alzare inconsciamente la voce, generando un ciclo di amplificazione del rumore che aumenta rapidamente l'intensita sonora complessiva dell'ambiente (noto come effetto Lombard). Tale contesto rende l'interazione meno agevole e contribuisce ad aumentare il livello di stress, in particolare nei periodi di picco. \cite{wilczek2020}
+
+Oltre a compromettere la percezione sensoriale, un'acustica mal gestita limita anche la privacy acustica tra i tavoli, aspetto importante per il comfort psicologico dei clienti. La propagazione incontrollata del suono rende difficile mantenere un livello adeguato di intimità nelle conversazioni, facendo percepire l'ambiente come caotico e sovraffollato. La presenza di un ambiente eccessivamente rumoroso può portare i clienti a ridurre il tempo di permanenza e a evitare visite successive, con un impatto negativo sulla fidelizzazione. \cite{6252340}
+
+Per migliorare la qualità del'ambiente acustico, è sempre più comune l'utilizzo di soluzioni tecnologiche avanzate come l'elaborazione del segnale digitale \gls{dsp} e l'impiego di materiali fonoassorbenti. Sistemi embedded come il Raspberry Pi, integrati con DSP, consentono di modulare dinamicamente il profilo acustico, adattandolo alle diverse necessità della giornata. Questi sistemi permettono di ridurre il rumore di fondo e di migliorare la chiarezza del parlato, senza compromettere l'estetica del luogo. 
+
+La progettazione acustica diventa così un aspetto strategico per il successo dei ristoranti moderni, influenzando non solo il comfort immediato, ma anche la probabilità di ritorno e la fidelizzazione della clientela.
+
+\section{Obiettivi della Tesi}
+\noindent
+
+Alla luce delle problematiche acustiche descritte e dell'impatto che l'ambiente sonoro ha sull'esperienza dei clienti, questa tesi si propone di sviluppare una soluzione tecnologica avanzata e accessibile per la gestione acustica nei contesti ristorativi. L'obiettivo principale è creare un sistema integrato, basato su piattaforme embedded come il Raspberry Pi, capace di gestire in tempo reale il profilo acustico del locale.
+
+L'obiettivo è affrontare le problematiche acustiche tipiche dei ristoranti, migliorando il comfort sonoro e creando un ambiente piacevole per i clienti. Il sistema proposto mira a gestire l'acustica del locale in modo che si adatti alle diverse esigenze degli spazi e dei momenti della giornata, contribuendo così a un'esperienza più gradevole e rilassante per tutti i presenti.
