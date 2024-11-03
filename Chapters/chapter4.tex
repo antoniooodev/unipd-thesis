@@ -13,28 +13,27 @@
 \prependtographicspath{{Chapters/Figures/Covers/}}
 
 \section{Introduzione alle reti neurali artificiali nel contesto della previsione del gradimento alimentare}
-\noindent
-Nei capitoli precedenti è stato dimostrato che le caratteristiche acustiche, come il livello e il tipo di rumore [8-14] e i fattori non acustici, come l'età, il sesso e la sensibilità al rumore, possono influenzare il gradimento del cibo in presenza di rumore di fondo. Tuttavia, il contributo relativo dei fattori acustici e non acustici al gradimento del cibo in presenza di rumore di fondo è ancora sconosciuto.
 
-Le \gls{ann} sono state utilizzate in molte applicazioni negli ultimi vent'anni per la classificazione (e.g. addestramento per classificare le immagini in "cani" o "gatti" ), il riconoscimento di pattern (e.g. il riconoscimento facciale), la regressione e la previsione (e.g. la previsione del flusso di un fiume) %\cite{rezaeianzadeh2014flood}.
+Le \gls{ann} sono strumenti sempre più utilizzati per analizzare fenomeni complessi, soprattutto quando variabili interdipendenti e non lineari influenzano i risultati. In ambito ristorativo, il rumore di fondo può avere un impatto significativo sull'esperienza gustativa e sul gradimento del cibo.
 
-Esse rappresentano un potente strumento di apprendimento automatico ispirato al funzionamento del cervello umano. 
+Studi precedenti hanno dimostrato che sia le caratteristiche acustiche, come il tipo e il livello del rumore, sia i fattori individuali, come età e sensibilità al rumore, possono influenzare la percezione del gusto. Tuttavia, il peso specifico di ciascuno di questi fattori sul gradimento alimentare in ambienti rumorosi non è ancora del tutto chiaro.
+
+Questo capitolo esplora l'impiego delle reti neurali ottimizzate con l'algoritmo \gls{hho} per migliorare le previsioni sul gradimento del cibo in presenza di rumore di fondo, proponendo un approccio che mira a superare le prestazioni dei modelli statistici tradizionali.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Chapters/Figures/brain.png}
-    \caption{\small Brain neural network.}
+    \caption{\small Brain neural network. \cite{neural2024}}
     \label{fig:brain}
 \end{figure}
 
-I principali vantaggi delle \gls{ann} nella previsione del gradimento alimentare includono:
+Le \gls{ann} offrono vantaggi significativi nell'ambito della previsione del gradimento alimentare, in particolare per la loro capacità di modellare relazioni non lineari. Grazie alla loro struttura, le ANN riescono a catturare e rappresentare relazioni complesse tra variabili di input e output senza richiedere assunzioni preliminari sulla forma di queste relazioni. Ad esempio, possono modellare come la combinazione del livello sonoro e della sensibilità personale al rumore influisca sul gradimento del cibo in un ristorante affollato, un fenomeno difficilmente descrivibile con modelli lineari tradizionali. Questa flessibilità si rivela particolarmente importante per comprendere preferenze alimentari influenzate da interazioni sensoriali complesse. \cite{PANAGOU2009121}
 
-\begin{itemize}
-    \item \textbf{Modellazione di relazioni non lineari}: Possiedono una notevole capacità di catturare e modellare relazioni non lineari complesse tra variabili di input e output, senza richiedere assunzioni preliminari sulla forma di queste relazioni. Questa caratteristica è particolarmente preziosa quando si tratta di modellare fenomeni complessi come le preferenze alimentari.
-    \item \textbf{Gestione di dati multidimensionali}: La  capacità di processare efficacemente dati multidimensionali ed elaborare simultaneamente molteplici variabili di input, che nel contesto dell'analisi del gradimento alimentare possono includere fattori acustici, caratteristiche individuali e parametri ambientali.
-    \item \textbf{Apprendimento adattivo}: Le \gls{ann} possono aggiornare continuamente i loro parametri con l'introduzione di nuovi dati, migliorando costantemente le prestazioni predittive nel tempo. Questo le rende strumenti particolarmente flessibili e adattabili a diversi contesti applicativi.
-    \item \textbf{Robustezza al rumore nei dati}: Robustezza nell'elaborazione di dati rumorosi o incompleti, caratteristica particolarmente preziosa quando si lavora con valutazioni soggettive umane, dove la variabilità naturale delle risposte e l'influenza di fattori esterni non controllabili sono intrinseche al processo di raccolta dati.
-\end{itemize}
+Un altro punto di forza delle reti neurali è la loro abilità nel gestire dati multidimensionali. La capacità di processare ed elaborare simultaneamente molteplici variabili di input permette alle \gls{ann} di analizzare informazioni provenienti da fonti diverse, come fattori acustici, caratteristiche individuali e parametri ambientali. Ad esempio, in una previsione di gradimento alimentare, una ANN può considerare contemporaneamente dati come il tipo di rumore di fondo (musica, traffico, conversazioni), il volume del rumore, e variabili demografiche del cliente (come età e genere). Questi elementi combinati permettono di costruire una previsione accurata che riflette meglio l'esperienza soggettiva dell'utente. \cite{YU201868}
+
+Inoltre, le reti neurali possiedono una notevole capacità di apprendimento adattivo, che consente loro di migliorare continuamente le proprie prestazioni predittive con l'introduzione di nuovi dati. Ad esempio, un modello di \gls{ann} può essere aggiornato in tempo reale con dati raccolti da sensori ambientali o feedback dei clienti, permettendogli di adattarsi alle variazioni delle preferenze nel corso del tempo e migliorando le raccomandazioni di gradimento. Tale adattabilità le rende strumenti estremamente flessibili e ideali per ambienti dinamici dove le condizioni acustiche possono cambiare durante la giornata.
+
+Un aspetto rilevante delle \gls{ann} è la loro robustezza nell'elaborazione di dati rumorosi o incompleti. Questa caratteristica è particolarmente preziosa nelle applicazioni che richiedono valutazioni soggettive, in cui la variabilità naturale delle risposte umane e l'influenza di fattori esterni non controllabili rappresentano elementi di disturbo. Per esempio, in una situazione in cui le risposte dei clienti al gradimento del cibo sono influenzate da fattori imprevisti (come uno stato d'animo negativo o un'interazione sociale durante il pasto), le ANN riescono comunque a identificare pattern affidabili grazie alla loro capacità di generalizzare dai dati imperfetti. \cite{krishnamurthy2022}
 
 Le \gls{ann} hanno dimostrato la loro efficacia in diversi ambiti della valutazione alimentare, come la previsione delle valutazioni dell'appetito. Tuttavia, prima dello studio presentato in \cite{alamir2021enhanced}, non erano mai state applicate alla previsione dell'apprezzamento del cibo in presenza di rumore di fondo, nonostante la loro comprovata superiorità rispetto ai modelli statistici tradizionali nel gestire relazioni non lineari. Questa caratteristica è particolarmente rilevante nel contesto dell'esperienza gastronomica, dove la relazione tra stimoli acustici e percezione del gusto presenta evidenti non linearità che i modelli statistici classici faticano a catturare.
 
@@ -45,29 +44,16 @@ L'utilizzo delle \gls{ann} in questo campo apre nuove frontiere per comprendere 
 
 Le \gls{ann} si basano su un'architettura \gls{mlp} progettata per predire il gradimento del cibo in presenza di rumori di sottofondo. La struttura è stata attentamente organizzata in tre componenti principali che lavorano in sinergia per elaborare e analizzare i dati.
 
-La struttura della rete è così articolata:
-
-\begin{itemize}
-    \item \textbf{Strato di input}: che funge da porta d'ingresso per i dati. Questo strato comprende cinque neuroni, ognuno dedicato a un fattore specifico:
-    \begin{enumerate}
-        \item Età
-        \item Genere
-        \item Sensibilità al rumore
-        \item Tipo di rumore
-        \item Livello di rumore
-    \end{enumerate}
-
-    Questi elementi rappresentano le variabili fondamentali che influenzano la percezione del cibo in un ambiente rumoroso.
+La configurazione della rete inizia con uno strato di input, composto da cinque neuroni, ciascuno corrispondente a un particolare fattore che si presume influenzi la percezione del gradimento alimentare in un ambiente rumoroso. Questi fattori includono l'età e il genere del soggetto, la sensibilità personale al rumore, il tipo di rumore presente e il livello di rumore. Ogni neurone nello strato di input riceve informazioni relative a uno di questi parametri, fornendo una base dettagliata per l'analisi predittiva della rete.
     
-    \item \textbf{Strati nascosti}: Due strati nascosti, ognuno contenente dieci neuroni. Questi strati sono cruciali per l'elaborazione dei dati, in quanto utilizzano una funzione di attivazione non lineare \gls{tanh} per processare le informazioni. Le connessioni tra i neuroni sono unidirezionali, con pesi che possono variare tra -1 e 1, permettendo alla rete di modulare l'importanza relativa di ogni connessione.
-    
-    \item \textbf{Strato di output}: Elabora tutte queste informazioni attraverso una funzione di attivazione lineare per produrre il risultato finale: una valutazione che indica quanto il cibo viene apprezzato nelle diverse condizioni sonore.
-\end{itemize}
+Segue una serie di strati nascosti, progettati per svolgere un'elaborazione più profonda delle informazioni. Nella rete proposta sono presenti due strati nascosti, ciascuno contenente dieci neuroni. Per massimizzare la capacità della rete di gestire relazioni non lineari complesse, è stata utilizzata una funzione di attivazione \gls{tanh} all'interno di questi strati. Le connessioni tra i neuroni sono unidirezionali, con pesi variabili tra -1 e 1, consentendo alla rete di adattare l'importanza relativa di ogni connessione in base al contesto specifico dei dati.
+
+Infine, tutte le informazioni elaborate negli strati nascosti vengono convogliate nello strato di output, dove una funzione di attivazione lineare genera il risultato finale: una previsione del gradimento alimentare in diverse condizioni sonore. L'output prodotto da questa architettura rappresenta una valutazione che riflette quanto il cibo viene apprezzato in funzione dei diversi livelli e tipi di rumore presenti nell'ambiente.
 
 \begin{figure}[H]
       \centering
       \includegraphics[width=0.6\textwidth]{Chapters/Figures/ArchitectureANN.png}
-      \caption{\small Architettura delle reti neurali. Lo strato di ingresso contiene fattori predittivi, mentre lo strato di uscita contiene le valutazioni di gradimento dei cibi. Gli strati sovrapposti o gli strati nascosti hanno un certo numero di neuroni.}
+      \caption{\small Architettura delle reti neurali. Lo strato di ingresso contiene fattori predittivi, mentre lo strato di uscita contiene le valutazioni di gradimento dei cibi. Gli strati sovrapposti o gli strati nascosti hanno un certo numero di neuroni. \cite{alamir2021enhanced}}
       \label{fig:architectureann}
   \end{figure}
 
@@ -210,7 +196,7 @@ Il dataset complessivo di 135 risposte è stato suddiviso in 70\% per l'addestra
 \begin{figure}[H]
       \centering
       \includegraphics[width=0.7\textwidth]{Chapters/Figures/HHO-ANN.png}
-      \caption{Il modello HHO-ANN proposto per la previsione del gradimento del cibo, in relazione al rumore di fondo nell'ambiente di ascolto.}
+      \caption{Il modello HHO-ANN proposto per la previsione del gradimento del cibo, in relazione al rumore di fondo nell'ambiente di ascolto. \cite{alamir2021enhanced}}
       \label{hho-ann}
 \end{figure}
 
@@ -223,9 +209,7 @@ Presentiamo i risultati del modello ANN-HHO e confronta le sue prestazioni con q
 
 Il confronto delle prestazioni del modello è riportato di seguito:
 
-\newpage 
 \begin{itemize}
-
       \item \textbf{Modello \gls{ffnn} ordionario:}
             \begin{itemize}
                   \item RMSE = 1.1
@@ -238,7 +222,7 @@ Il confronto delle prestazioni del modello è riportato di seguito:
       \captionsetup{font=scriptsize}
       \centering
       \includegraphics[width=1\textwidth]{Chapters/Figures/ffnn-result.png} 
-      \caption{\small Le prestazioni delle reti neurali feedforward ordinarie per la previsione del gradimento relativo degli alimenti (FFNN). La correlazione tra i valori mirati del gradimento relativo del cibo (sull'asse delle ascisse) e i valori previsti del gradimento relativo del cibo (sull'asse delle ordinate) sono mostrati per (a) i dati di formazione (b) i dati di convalida (c) i dati di prova (d) tutti i dati. I residui per i dati di formazione, convalida e test sono mostrati nella parte (e).}
+      \caption{\small Le prestazioni delle reti neurali feedforward ordinarie per la previsione del gradimento relativo degli alimenti (FFNN). La correlazione tra i valori mirati del gradimento relativo del cibo (sull'asse delle ascisse) e i valori previsti del gradimento relativo del cibo (sull'asse delle ordinate) sono mostrati per (a) i dati di formazione (b) i dati di convalida (c) i dati di prova (d) tutti i dati. I residui per i dati di formazione, convalida e test sono mostrati nella parte (e). \cite{alamir2021enhanced}}
       \label{fig:ffnn-abc}
 \end{figure}
 
@@ -256,7 +240,7 @@ Il confronto delle prestazioni del modello è riportato di seguito:
       \captionsetup{font=scriptsize}
       \centering
       \includegraphics[width=1\textwidth]{Chapters/Figures/ann-hho-result.png} 
-      \caption{\small Le prestazioni della rete neurale potenziata che utilizza l'ottimizzatore di Harris Hawks (ANN-HHO). La correlazione tra i valori mirati del gradimento relativo del cibo (sull'asse delle ascisse) e i valori previsti del gradimento relativo del cibo (sull'asse delle ordinate) sono mostrati per (a) i dati di formazione (b) i dati di convalida (c) i dati di prova (d) tutti i dati. I residui per i dati di formazione, convalida e test sono mostrati nella parte (e).}
+      \caption{\small Le prestazioni della rete neurale potenziata che utilizza l'ottimizzatore di Harris Hawks (ANN-HHO). La correlazione tra i valori mirati del gradimento relativo del cibo (sull'asse delle ascisse) e i valori previsti del gradimento relativo del cibo (sull'asse delle ordinate) sono mostrati per (a) i dati di formazione (b) i dati di convalida (c) i dati di prova (d) tutti i dati. I residui per i dati di formazione, convalida e test sono mostrati nella parte (e). \cite{alamir2021enhanced}}
       \label{fig:ann-hho-abc}
 \end{figure}
 
@@ -314,20 +298,17 @@ La figura \ref{fig:prediction_food} mostra i risultati delle previsioni del mode
       \label{fig:prediction_food}
 \end{figure}
 
-Questi risultati dimostrano che il modello ANN-HHO ha ottenuto prestazioni migliori rispetto ai modelli tradizionali
+I risultati ottenuti indicano che il modello ANN-HHO ha raggiunto prestazioni superiori rispetto ai modelli tradizionali nella previsione del gradimento alimentare in presenza di rumore di fondo. In particolare, l'analisi dei diversi tipi di rumore mostra come specifici livelli influenzino la gradevolezza percepita del cibo in modo significativo.
 
-Come già discusso precedentemente, i risultati dei tre dipi di rumore testati mostrano:
+Per il sottofondo musicale, il modello prevede che un livello intorno ai 30 dBA sia quello che massimizza la gradevolezza relativa del cibo, con una tendenza a diminuire man mano che il livello del rumore supera questa soglia.
 
-\begin{enumerate}
-      \item \textbf{Musica: }La previsione indica che un livello di rumore di 30 dBA ha dato le valutazioni massime di gradevolenza relativa per la musica. Si può notare come la gradevolenza relativa diminuisca all'aumentare del livello di rumore oltre i 30 dBA.
-      \item \textbf{Rumore del ristorante: }Anche per il rumore di ristorante, il modello prevede che 30 dBA sia il livello che massimizza la gradevolenza relativa del cibo. Come per la musica, la gradevolenza relativa diminuisce con l'aumentare del rumore oltre i 30 dBA.
-      \item \textbf{Rumore del traffico stradale: }Per il rumore del traffico stradale, il modello prevede che il livello di 35 dBA massimizzi la gradevolenza relativa. Anche in questo caso, la gradevolenza diminuisce con l'aumentare del livello di rumore.
-      \item \textbf{Tutti i tipi di rumore: }Sommando le previsioni per tutti i tipi di rumore, il modello indica che il livello di 30 dBA fornisce la gradevolenza relativa media più alta.
-\end{enumerate}
+Anche per il rumore caratteristico degli ambienti ristorativi, la previsione indica che 30 dBA rappresenta la soglia di massima gradevolezza, seguita da un calo con l'aumento dell'intensità sonora.
+
+Una dinamica simile è osservata per il rumore del traffico stradale, dove il livello di 35 dBA porta alla massima percezione di gradimento del cibo, seguito anche in questo caso da un decremento in relazione all'aumento del rumore.
+
+Considerando i risultati complessivi per tutti i tipi di rumore, il modello suggerisce che il livello di rumore ottimale per una gradevolezza relativa media più alta si attesti intorno ai 30 dBA. Questo valore rappresenta il punto in cui la percezione del gradimento è massimizzata, confermando come livelli sonori moderati, piuttosto che elevati, possano influire positivamente sull'esperienza gustativa in ambienti di ristorazione.
 
 È importante notare che i valori massimi sono stati determinati attraverso una rappresentazione continua delle previsioni, quindi i valori vicini non differivano in modo significativo.
-
-Questi risultati confermano quelli di precedenti studi \cite{Alamirprecedentstudy} sull'impatto del tipo e livello di rumore sulla gradevolezza del cibo.
 
 \begin{figure}[H]
       \centering
