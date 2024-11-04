@@ -21,6 +21,7 @@ Per realizzare questo progetto, si è scelto di utilizzare il Raspberry Pi, un m
 
 Questa introduzione pone le basi per una discussione dettagliata su come realizzare un sistema di comunicazione audio efficiente e scalabile in un ambiente educativo distribuito, affrontando sfide pratiche con soluzioni tecnologiche innovative.
 
+\newpage
 \section{Architettuera del Sistema}
 \noindent
 
@@ -47,6 +48,10 @@ Per consentire l’accesso remoto al server e la gestione della riproduzione mus
 \end{figure}
 
 \end{comment}
+
+La scelta di una soluzione wireless per la distribuzione audio offre vantaggi significativi rispetto ai sistemi cablati tradizionali. I sistemi wireless riducono i costi di installazione e manutenzione, eliminando la necessità di cablaggi complessi. 
+
+Inoltre, l'adozione di tecnologie wireless avanzate garantisce una qualità audio comparabile a quella dei sistemi cablati, mantenendo una latenza minima e una sincronizzazione precisa tra i dispositivi. \cite{7990980}
 
 \section{Stack Software e Componenti}
 \noindent
@@ -161,6 +166,9 @@ Per garantire l'avvio automatico del servizio, Snapclient viene configurato come
     \caption{Configurazione del servizio Snapclient come servizio systemd.}
     \label{tab:snapclient_service}
   \end{table}
+
+  L'ottimizzazione dei parametri di latenza e buffer è cruciale per garantire una qualità del suono elevata e una sincronizzazione accurata in ambienti multi-room. 
+  Una configurazione adeguata di questi parametri riduce il jitter e la latenza, migliorando l'esperienza d'ascolto in contesti come ristoranti con elevato rumore di fondo. \cite{7990980}
 
 \newpage
 \section{Implementazione del Frontend}
@@ -298,6 +306,8 @@ I gruppi rappresentano zone audio logiche che possono contenere più client. L'i
     \label{tab:volume_gruppo}
 \end{table}
 
+La sincronizzazione audio in sistemi multi-room tra diverse soluzioni hanno mostrato che l'uso di protocolli come Snapcast offre una latenza ridotta e una sincronizzazione più stabile rispetto ad altre tecnologie. \cite{7990980}
+
 Questa implementazione garantisce che le modifiche del volume di gruppo vengano applicate proporzionalmente a tutti i client membri, mantenendo le proporzioni relative tra i volumi dei singoli client.
 
 \newpage
@@ -375,8 +385,9 @@ La gestione degli eventi Snapcast è particolarmente sofisticata, dovendo gestir
 
 La gestione di un sistema di streaming audio multi-room presenta una complessità elevata, richiedendo un sistema di controllo dello stato che assicuri prestazioni ottimali e consistenza dei dati. L'implementazione utilizza Redux come soluzione per il state management, con particolare attenzione sulla scalabilità e sulla reattività dell'interfaccia.
 
-Lo store Redux è stato progettato seguendo il principio della separazione delle responsabilità, dividendo lo stato in tre domini principali:
+Lo store Redux è stato progettato seguendo il principio della separazione delle responsabilità, dividendo lo stato in tre domini principali elencati nelle prossime pagine.
 
+\newpage
 \begin{itemize}
     \item \texttt{Stato Mopidy:} gestisce tutti gli aspetti relativi alla riproduzione audio.
 
@@ -467,7 +478,7 @@ Lo store Redux è stato progettato seguendo il principio della separazione delle
             \label{tab:stato_ui}
           \end{table}
 \end{itemize}
-
+\newpage
 \subsection{Gestione dello Stato nell'Interfaccia Utente}
 
 L'interfaccia utente del sistema di streaming richiede una gestione efficace dello stato per garantire una visualizzazione coerente e reattiva delle informazioni. Attraverso l'utilizzo di Redux come gestore dello stato, come già detto in precedenza, l'interfaccia mantiene sincronizzati tutti i componenti visuali con lo stato corrente del sistema.
@@ -499,6 +510,7 @@ Infine, l'interfaccia gestisce lo stato delle preferenze utente:
     \item Playlist recenti
 \end{itemize}
 
+\newpage
 La gestione di questi stati nell'interfaccia è implementata attraverso componenti React che si aggiornano automaticamente in risposta ai cambiamenti. Per esempio, il componente dei controlli di riproduzione si mantiene sincronizzato con lo stato attraverso l'uso degli hooks di Redux:
 
 \begin{table}[H]
@@ -517,6 +529,8 @@ const PlaybackControls = () => {
     \label{tab:playbackcontrols}
   \end{table}
 
+Redux facilita la gestione di stati complessi e asincroni, migliorando la reattività e la coerenza dell'interfaccia. Studi sulle best practices di gestione dello stato in ambienti distribuiti evidenziano come Redux contribuisca a mantenere un flusso dati unidirezionale, riducendo la complessità e prevenendo incongruenze nello stato dell'applicazione. \cite{zhao2024}
+
 Questo approccio garantisce che l'interfaccia rimanga sempre coerente con lo stato effettivo del sistema, fornendo un feedback immediato alle azioni dell'utente.
 
 \begin{comment}
@@ -527,7 +541,7 @@ Nel contesto dell'interfaccia utente, la gestione degli errori si concentra sull
 
 \end{comment}
 
-\subsection{Test e Performance}
+\section{Test e Performance}
 \noindent
 
 \begin{comment}

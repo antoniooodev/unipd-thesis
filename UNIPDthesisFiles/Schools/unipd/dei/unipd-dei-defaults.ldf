@@ -207,7 +207,7 @@
   \\[1.25ex]%
   \theuniversity(\@LANG@COVER)\\[1pt]%
   \iftoggle{/unipdthesis/print/timestamp}{%
-    \ifdocworking{novembre, 2024}%
+    \ifdocworking{Novembre, 2024}%
                  {\thentdocdate(submission,month,text), \thentdocdate(submission,year)}%
   }{\thentdocdate(submission,month,text), \thentdocdate(submission,year)}%
 }

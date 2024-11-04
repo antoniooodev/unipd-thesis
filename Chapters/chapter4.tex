@@ -16,7 +16,16 @@
 
 Le \gls{ann} sono strumenti sempre più utilizzati per analizzare fenomeni complessi, soprattutto quando variabili interdipendenti e non lineari influenzano i risultati. In ambito ristorativo, il rumore di fondo può avere un impatto significativo sull'esperienza gustativa e sul gradimento del cibo.
 
-Studi precedenti hanno dimostrato che sia le caratteristiche acustiche, come il tipo e il livello del rumore, sia i fattori individuali, come età e sensibilità al rumore, possono influenzare la percezione del gusto. Tuttavia, il peso specifico di ciascuno di questi fattori sul gradimento alimentare in ambienti rumorosi non è ancora del tutto chiaro.
+Studi precedenti hanno dimostrato che sia le caratteristiche acustiche, come il tipo e il livello del rumore, sia i fattori individuali, come età e sensibilità al rumore, possono influenzare la percezione del gusto. Tuttavia, il peso specifico di ciascuno di questi fattori sul gradimento alimentare in ambienti rumorosi non è ancora del tutto chiaro. \cite{spence2014}
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.7\textwidth]{Chapters/Figures/age_ecc.png}
+      \caption{\small Gradimento del cibo in condizioni di bassa rumorosità.}
+      \label{fig:age}
+  \end{figure}
+
+\newpage
 
 Questo capitolo esplora l'impiego delle reti neurali ottimizzate con l'algoritmo \gls{hho} per migliorare le previsioni sul gradimento del cibo in presenza di rumore di fondo, proponendo un approccio che mira a superare le prestazioni dei modelli statistici tradizionali.
 
@@ -27,7 +36,7 @@ Questo capitolo esplora l'impiego delle reti neurali ottimizzate con l'algoritmo
     \label{fig:brain}
 \end{figure}
 
-Le \gls{ann} offrono vantaggi significativi nell'ambito della previsione del gradimento alimentare, in particolare per la loro capacità di modellare relazioni non lineari. Grazie alla loro struttura, le ANN riescono a catturare e rappresentare relazioni complesse tra variabili di input e output senza richiedere assunzioni preliminari sulla forma di queste relazioni. Ad esempio, possono modellare come la combinazione del livello sonoro e della sensibilità personale al rumore influisca sul gradimento del cibo in un ristorante affollato, un fenomeno difficilmente descrivibile con modelli lineari tradizionali. Questa flessibilità si rivela particolarmente importante per comprendere preferenze alimentari influenzate da interazioni sensoriali complesse. \cite{PANAGOU2009121}
+Le Artificial Neural Network (\gls{ann}) offrono vantaggi significativi nell'ambito della previsione del gradimento alimentare, in particolare per la loro capacità di modellare relazioni non lineari. Grazie alla loro struttura, le ANN riescono a catturare e rappresentare relazioni complesse tra variabili di input e output senza richiedere assunzioni preliminari sulla forma di queste relazioni. Ad esempio, possono modellare come la combinazione del livello sonoro e della sensibilità personale al rumore influisca sul gradimento del cibo in un ristorante affollato, un fenomeno difficilmente descrivibile con modelli lineari tradizionali. Questa flessibilità si rivela particolarmente importante per comprendere preferenze alimentari influenzate da interazioni sensoriali complesse. \cite{PANAGOU2009121}
 
 Un altro punto di forza delle reti neurali è la loro abilità nel gestire dati multidimensionali. La capacità di processare ed elaborare simultaneamente molteplici variabili di input permette alle \gls{ann} di analizzare informazioni provenienti da fonti diverse, come fattori acustici, caratteristiche individuali e parametri ambientali. Ad esempio, in una previsione di gradimento alimentare, una ANN può considerare contemporaneamente dati come il tipo di rumore di fondo (musica, traffico, conversazioni), il volume del rumore, e variabili demografiche del cliente (come età e genere). Questi elementi combinati permettono di costruire una previsione accurata che riflette meglio l'esperienza soggettiva dell'utente. \cite{YU201868}
 
@@ -37,8 +46,13 @@ Un aspetto rilevante delle \gls{ann} è la loro robustezza nell'elaborazione di 
 
 Le \gls{ann} hanno dimostrato la loro efficacia in diversi ambiti della valutazione alimentare, come la previsione delle valutazioni dell'appetito. Tuttavia, prima dello studio presentato in \cite{alamir2021enhanced}, non erano mai state applicate alla previsione dell'apprezzamento del cibo in presenza di rumore di fondo, nonostante la loro comprovata superiorità rispetto ai modelli statistici tradizionali nel gestire relazioni non lineari. Questa caratteristica è particolarmente rilevante nel contesto dell'esperienza gastronomica, dove la relazione tra stimoli acustici e percezione del gusto presenta evidenti non linearità che i modelli statistici classici faticano a catturare.
 
+In uno ulteriore studio, un modello di \gls{ann} è stato progettato per prevedere le preferenze degli utenti utilizzando due principali tipologie di input: caratteristiche visive del cibo e ingredienti del piatto \cite{gao2019hierarchical}. 
+
+Le caratteristiche visive comprendono l'aspetto del cibo (colore, forma, presentazione), che influisce fortemente sulla percezione e sull'attrattiva del piatto. Gli ingredienti invece permettono di adattare le previsioni ai gusti specifici degli utenti, considerando preferenze, restrizioni alimentari e intolleranze. Questa combinazione consente al modello di fare previsioni accurate sulle preferenze alimentari, elaborando sia l'aspetto visivo che la composizione del cibo, creando così un profilo completo delle preferenze del cliente.
+
 L'utilizzo delle \gls{ann} in questo campo apre nuove frontiere per comprendere e prevedere come diversi fattori ambientali, in particolare il rumore, influenzano l'esperienza gastronomica. Questa comprensione non solo ha implicazioni pratiche per l'industria della ristorazione, ma offre anche preziosi spunti sulle complesse interazioni tra i nostri sensi nella percezione del cibo. La ricerca proposta mira a esplorare e quantificare queste interazioni attraverso l'implementazione di un modello \gls{ann} avanzato, con l'obiettivo di fornire uno strumento predittivo accurato e versatile per l'ottimizzazione dell'esperienza culinaria in diversi ambienti acustici.
 
+\newpage
 \section{Architettura delle ANN}
 \noindent
 
@@ -92,7 +106,7 @@ L'algoritmo \gls{hho} è una tecnica di ottimizzazione meta-euristica ispirata a
 L'\gls{hho} imita il comportamento dei falchi Harris durante la cattura delle lepri, rappresentando la fase di ottimizzazione globale o di esplorazione ed sfruttamento, cioè:
 
 \begin{itemize}
-      \item \textbf{Esplorazione}: In questa fase, l'algoritmo \gls{hho} cerca di esplorare nuove regioni dello spazio di ricerca, al fine di trovare soluzioni promettenti che potrebbero non essere state ancora scoperte. Questo viene fatto attraverso l'utilizzo di una strategia di ricerca casuale, come l'equazione (3.2) presentata nel documento, che permette di aggiornare la soluzione corrente ($X(t)$) verso soluzioni casuali ($X_r(t)$).
+      \item \textbf{Esplorazione}: In questa fase, l'algoritmo \gls{hho} cerca di esplorare nuove regioni dello spazio di ricerca, al fine di trovare soluzioni promettenti che potrebbero non essere state ancora scoperte. Questo viene fatto attraverso l'utilizzo di una strategia di ricerca casuale, come l'equazione \eqref{4.2} presentata nel documento, che permette di aggiornare la soluzione corrente ($X(t)$) verso soluzioni casuali ($X_r(t)$).
 
       L'obiettivo dell'esplorazione è quello di evitare il rischio di rimanere bloccati in ottimi locali, ampliando la ricerca per trovare potenziali soluzioni migliori.
 
@@ -110,7 +124,7 @@ Una volta generato questo set iniziale di soluzioni, l'\gls{hho} procede a calco
 
 Tipicamente, la funzione di fitness viene definita in modo tale che le soluzioni migliori (cioè quelle più vicine all'ottimo) abbiano un valore di fitness più elevato rispetto alle soluzioni peggiori. Questo permette all'algoritmo di identificare la migliore soluzione trovata finora, che viene denominata "posizione della lepre" ($x_b$).
 
-Successivamente, durante la fase di esplorazione e sfruttamento, l'\gls{hho} utilizza le equazioni (3.2) e (3.3) per aggiornare iterativamente le soluzioni candidate ($X$), alternando tra la ricerca di nuove soluzioni promettenti (esplorazione) e il miglioramento delle migliori soluzioni trovate finora (sfruttamento). 
+Successivamente, durante la fase di esplorazione e sfruttamento, l'\gls{hho} utilizza le equazioni \eqref{4.2} e \eqref{4.3} per aggiornare iterativamente le soluzioni candidate ($X$), alternando tra la ricerca di nuove soluzioni promettenti (esplorazione) e il miglioramento delle migliori soluzioni trovate finora (sfruttamento). 
 
 Questo processo iterativo continua finché non viene soddisfatto un criterio di arresto, ad esempio un numero massimo di iterazioni o il raggiungimento di una soglia di fitness desiderata.
 
@@ -122,6 +136,7 @@ La rappresentazione matematica dell'algoritmo HHO è espressa come:
             X_r(t) - r_1 |X_r(t) - 2r_2 X(t)| &  q \ge 0.5 \\
             X_b(t) - X_m(t) - r_3 (lb + r_4 (ub - lb)) & \text{otherwise}
       \end{cases}
+      \label{4.2}
 \end{equation} 
 
 Dove $X_r(t)$  è una soluzione casuale selezionata dal pool di soluzioni candidate, $X_{b}(t)$ è la migliore soluzione trovata finora, $X_{m}(t)$ è la soluzione media, $r_1$, $r_2$, $r_3$, $r_4$ sono numeri casuali, $q$ è un numero casuale compreso tra 0 e 1 che determina la probabilità di passare tra due stati, e $lb$ e $ub$ sono i limiti inferiore e superiore dello spazio di ricerca.
@@ -130,6 +145,7 @@ Quando $q\geq0.5$ l'\gls{hho} segue la fase di esplorazione. Altrimenti, l'algor
 
 \begin{equation}
       X(t+1) = \Delta X(t) - E|J \times X_b(t) - X(t)| 
+      \label{4.3}
 \end{equation}
 
 Dove $\Delta X(t)$ è la differenza tra $X_{b}(t)$ e $X(t)$, e $J = 2(1-r_{5})$ rappresenta i salti casuali della lepre, con r5 un numero casuale tra 0 e 1.
@@ -154,6 +170,11 @@ Nel nostro studio, l'HHO viene impiegato per ottimizzare i pesi e le polarizzazi
 
 L'integrazione di HHO con la RNA crea un potente modello ibrido (RNA-HHO), capace di fare previsioni più accurate in problemi complessi e non lineari, come il gradimento del cibo in ambienti acustici variabili.
 \end{comment}
+
+\newpage
+L'algoritmo \gls{hho} è stato scelto per l'ottimizzazione della rete neurale in quanto offre un equilibrio efficace tra esplorazione e sfruttamento dello spazio delle soluzioni. Studi hanno dimostrato che l'\gls{hho} supera altri algoritmi di ottimizzazione, come l'algoritmo genetico e l'ottimizzazione per sciami di particelle, in termini di velocità di convergenza e accuratezza dei risultati. \cite{9400357}
+
+Questa superiorità rende l'\gls{hho} particolarmente adatto per applicazioni che richiedono un'ottimizzazione efficiente e precisa.
 
 \section{Implementazione del modello ANN-HHO}
 \noindent
@@ -207,8 +228,9 @@ Grazie alla sua architettura avanzata e all'utilizzo dell'ottimizzazione \gls{hh
 
 Presentiamo i risultati del modello ANN-HHO e confronta le sue prestazioni con quelle dei modelli \gls{ann} tradizionali (i \gls{ffnn}) e dei modelli statistici misti.
 
-Il confronto delle prestazioni del modello è riportato di seguito:
+Il confronto delle prestazioni del modello è riportato nelle pagine seguenti:
 
+\newpage 
 \begin{itemize}
       \item \textbf{Modello \gls{ffnn} ordionario:}
             \begin{itemize}
@@ -244,6 +266,7 @@ Il confronto delle prestazioni del modello è riportato di seguito:
       \label{fig:ann-hho-abc}
 \end{figure}
 
+\newpage
 \begin{itemize}
       \item \textbf{Modello statistico misto:}
             \begin{itemize}
@@ -288,7 +311,6 @@ I risultati principali del modello ANN-HHO includono:
 \end{comment}
 
 
-\newpage
 La figura \ref{fig:prediction_food} mostra i risultati delle previsioni del modello ANN-HHO sulla gradevolezza relativa del cibo a diversi livelli di rumore per i tre tipi di rumore testati.
 
 \begin{figure}[H]
@@ -304,7 +326,7 @@ Per il sottofondo musicale, il modello prevede che un livello intorno ai 30 dBA 
 
 Anche per il rumore caratteristico degli ambienti ristorativi, la previsione indica che 30 dBA rappresenta la soglia di massima gradevolezza, seguita da un calo con l'aumento dell'intensità sonora.
 
-Una dinamica simile è osservata per il rumore del traffico stradale, dove il livello di 35 dBA porta alla massima percezione di gradimento del cibo, seguito anche in questo caso da un decremento in relazione all'aumento del rumore.
+Una dinamica simile è osservata per il rumore del traffico stradale, dove un livello di circa 30-35 dBA è associato alla massima percezione di gradimento del cibo. Questo effetto positivo diminuisce man mano che il livello di rumore aumenta, indicando che oltre questa soglia il rumore può iniziare a ridurre il piacere dell'esperienza gustativa.
 
 Considerando i risultati complessivi per tutti i tipi di rumore, il modello suggerisce che il livello di rumore ottimale per una gradevolezza relativa media più alta si attesti intorno ai 30 dBA. Questo valore rappresenta il punto in cui la percezione del gradimento è massimizzata, confermando come livelli sonori moderati, piuttosto che elevati, possano influire positivamente sull'esperienza gustativa in ambienti di ristorazione.
 
@@ -352,6 +374,7 @@ Queste applicazioni pratiche dimostrano come le intuizioni del modello ANN-HHO p
 
 \end{comment}
 
+\newpage
 \section{Discussione e implicazioni}
 \noindent
 
@@ -365,6 +388,10 @@ Il modello ANN-HHO ottimizzato è stato quindi utilizzato per prevedere i livell
       \caption{\small Proposed Framework for Real-time Acoustic Optimization System integrating ANN-HHO model.}
       \label{fig:realtimesystem}
 \end{figure}
+
+Per valutare l'efficacia del modello \gls{ann} ottimizzato con \gls{hho}, è stata condotta un'analisi comparativa con modelli tradizionali, come le regressioni lineari e le reti neurali non ottimizzate. I risultati indicano che l'ANN-HHO offre una maggiore accuratezza predittiva e una migliore capacità di generalizzazione.
+
+Questa superiorità è attribuibile alla capacità dell'\gls{hho} di evitare minimi locali e di esplorare efficacemente lo spazio delle soluzioni, migliorando così le prestazioni complessive del modello. \cite{8030298}
 
 Questa ricerca contribuisce al campo dell'ingegneria dimostrando l'efficacia dei modelli ibridi di intelligenza artificiale nella risoluzione di problemi complessi del mondo reale. Il modello ANN-HHO non solo fornisce previsioni accurate ma offre anche interpretabilità, risolvendo una critica comune alle reti neurali. Il successo dell'applicazione nell'ottimizzazione dell'ambiente acustico apre nuove strade all'IA nella progettazione esperienziale e nella ricerca sensoriale.
 
