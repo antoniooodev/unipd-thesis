@@ -35,27 +35,27 @@
 \committeeorder():={c,r,a,ca,m}%
 
 % Cover background images
-\thesiscover(1-1,bgcolor):={black}
-\thesiscover(1-1,textcolor):={white}
+% \thesiscover(1-1,bgcolor):={black}
+% \thesiscover(1-1,textcolor):={white}
 \thesiscover(2-1,textcolor):={black}
 
 % DEFAULT cover
-\thesiscover(1-1,image):={unipd-dei-bsc-cover}
+% \thesiscover(1-1,image):={unipd-dei-bsc-cover}
 \thesiscover(N-2,image):={unipd-dei-bsc-cover-back}
 \thesiscover(spine,image):={unipd-dei-spine-red}
 
 % PhD cover
-\thesiscover(phd,1-1,image):={unipd-dei-bsc-cover}
+% \thesiscover(phd,1-1,image):={unipd-dei-bsc-cover}
 \thesiscover(phd,N-2,image):={unipd-dei-bsc-cover-back}
 \thesiscover(phd,spine,image):={nova-fct-phd-spine}
 
 % MSc cover
-\thesiscover(msc,1-1,image):={unipd-dei-bsc-cover}
+% \thesiscover(msc,1-1,image):={unipd-dei-bsc-cover}
 \thesiscover(msc,N-2,image):={unipd-dei-bsc-cover-back}
 \thesiscover(msc,spine,image):={nova-fct-msc-spine}
 
 % BSc cover
-\thesiscover(bsc,1-1,image):={unipd-dei-bsc-cover}
+% \thesiscover(bsc,1-1,image):={unipd-dei-bsc-cover}
 \thesiscover(bsc,N-2,image):={unipd-dei-bsc-cover-back}
 \thesiscover(bsc,spine,image):={unipd-dei-spine-red}
 
@@ -130,65 +130,6 @@
 %% COVER 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Department name
-\ntaddtocover[vspace=1.25mm,halign=l,hspace=6.1cm,height=2.0cm,valign=t]{1-1}{%
-  % \ntcoverbackground%
-  \fontsize{14}{14}\selectfont%
-  \THEdepartment(\@LANG@COVER)%
-}
-
-% Title of Dissertation (PhD) / The author name (MSc)
-\ntaddtocover[vspace=5.3cm,halign=l,height=3.0cm,valign=c]{1-1}{%
-  \ifphddoc{%
-    \fontsize{22}{21}\selectfont%
-    \textbf{\THEdoctitle(\@LANG@COVER,main,cover)}%
-    \ifdatadefined{doctitle}(\@LANG@COVER,sub,cover){%
-      \\[4mm]%
-      \fontsize{14}{14}\selectfont%
-      \textbf{\THEdoctitle(\@LANG@COVER,sub,cover)}%
-    }{}%
-  }{%
-    \fontsize{17}{17}\selectfont%
-    \textbf{\THEdocauthor(name)}\\[2mm]%
-    \fontsize{17}{17}\selectfont%
-    \thedocauthor(degree,\@LANG@COVER)%
-  }%
-}
-
-% The author name (PhD) / Title of Dissertation (MSc)
-\ntaddtocover[vspace=3.0cm,halign=l,height=3cm,valign=c]{1-1}{%
-  \ifphddoc{%
-    \fontsize{17}{17}\selectfont%
-    \textbf{\THEdocauthor(name)}\\[2mm]%
-    \fontsize{17}{17}\selectfont%
-    \thedocauthor(degree,\@LANG@COVER)%
-  }{%
-    \fontsize{22}{21}\selectfont%
-    \textbf{\THEdoctitle(\@LANG@COVER,main,cover)}%
-    \ifdatadefined{doctitle}(\@LANG@COVER,sub,cover){%
-      \\[4mm]%
-      \fontsize{14}{14}\selectfont%
-      \textbf{\THEdoctitle(\@LANG@COVER,sub,cover)}%
-    }{}%
-  }%
-}
-
-% Date
-\ntaddtocover[vspace=1,halign=l]{1-1}{%
-  \fontsize{14}{13}\selectfont%
-  \ifmaindoc{}{\thedissertationplan(\@DOCTYPE,\@LANG@COVER)\\[1pt]}%
-  % \ifoptionequal{/unipdthesis/doctype}{mscplan}{Dissertation Plan\\[1pt]}{}%
-  \THEdegreename(\@LANG@COVER)%
-  {\ifdatadefined{specialization}(\@LANG@COVER){%
-  \fontsize{11}{11}\selectfont
-  \\\THEspecialization(\@LANG@COVER)}{}}%
-  \\[3mm]%
-  \theuniversity(\@LANG@COVER)\\[1pt]%
-  \iftoggle{/unipdthesis/print/timestamp}{%
-    \ifdocworking{\emph{\color{yellow}\textbf{Bozza:} \today}}%
-                 {\thentdocdate(submission,month,text), \thentdocdate(submission,year)}%
-  }{\thentdocdate(submission,month,text), \thentdocdate(submission,year)}%
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% COVER 2
@@ -251,7 +192,7 @@
   \adviserstringfont():={\bfseries}%
   \fontsize{11}{11}\selectfont%
   \textbf{Anno Accademico: } \text{2023-2024}\\%
-  \textbf{Data di laurea: } \text{26/09/2024}%
+  \textbf{Data di laurea: } \text{12/11/2024}%
 }
 
 % Date
@@ -266,7 +207,7 @@
   \\[1.25ex]%
   \theuniversity(\@LANG@COVER)\\[1pt]%
   \iftoggle{/unipdthesis/print/timestamp}{%
-    \ifdocworking{\emph{\color{blue}\textbf{Bozza:} \today}}%
+    \ifdocworking{novembre, 2024}%
                  {\thentdocdate(submission,month,text), \thentdocdate(submission,year)}%
   }{\thentdocdate(submission,month,text), \thentdocdate(submission,year)}%
 }
