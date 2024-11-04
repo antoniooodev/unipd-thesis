@@ -202,6 +202,24 @@
 \benchmarktoc
 \typeout{TIME process covers=\the\pdfelapsedtime}%
 %%------------------------------------------------------------
+%% Print dedications
+\benchmarktic
+\ntprint{dedicatory}      
+\benchmarktoc
+\typeout{TIME process dedicatory=\the\pdfelapsedtime}%
+%%------------------------------------------------------------
+%% Print acknowledgements
+\benchmarktic
+\ntprint{acknowledgements}     
+\benchmarktoc
+\typeout{TIME process dedicatory=\the\pdfelapsedtime}%
+%%------------------------------------------------------------
+%% Print quote
+\benchmarktic
+\ntprint{quote}     
+\benchmarktoc
+\typeout{TIME process dedicatory=\the\pdfelapsedtime}%
+%%------------------------------------------------------------
 %% Print front matter
 \benchmarktic
 \ntprint{frontmatter}     % The default order is listed below, but can be changed
