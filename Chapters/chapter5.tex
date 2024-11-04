@@ -80,18 +80,20 @@ L'implementazione del backend concerne la configurazione e lo sviluppo dei compo
 
 Il server principale, posizionato fisicamente nella sala server, richiede una configurazione specifica dell'indirizzo IP statico per garantire una connessione stabile e affidabile. Il sistema è stato configurato con Mopidy per la gestione delle sorgenti audio e della libreria musicale. Il file di configurazione di Mopidy è stato personalizzato per ottimizzare la gestione dell'audio:
 
-\begin{table}[H]
-    \begin{minipage}{0.8\textwidth}
+
+  \begin{table}[H]
+    \begin{algorithm}[H]
+      \caption{}
+      \BlankLine
       \begin{verbatim}
         [audio]
         output = audioresample ! audioconvert ! \=audio/x-raw,
                   rate=48000, channels=2,
                     format=S16LE ! filesink location=/tmp/snapfifo
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{Esempio di configurazione della pipeline audio di Mopidy.}
-    \label{tab:mopidy_config}
-  \end{table}
+    \end{table}
 
 Questa configurazione permette di convertire e ricampionare l'audio a 48kHz con una profondità di 16 bit, garantendo un buon compromesso tra qualità e larghezza di banda. L'output viene diretto a un file FIFO che funge da buffer tra Mopidy e Snapcast.
 
@@ -106,40 +108,41 @@ Snapserver è stato configurato per acquisire i dati da questo buffer e gestire 
 I dispositivi client sono Raspberry Pi Zero 2W configurati con Snapclient per ricevere e riprodurre i flussi audio. Ogni client mantiene nel proprio file di configurazione l'indirizzo \gls{ip} del server, assicurando una connessione automatica all'avvio del sistema. La configurazione fondamentale di Snapclient è definita nel file di configurazione:
 
 \begin{table}[H]
-    \centering
-    \begin{minipage}{0.5\textwidth} 
-      \begin{verbatim}
-        [snapclient]
-        host = <server_ip>
-        port = 1704
-        sound_mode = alsa
-      \end{verbatim}
-    \end{minipage}
-    \caption{Esempio di configurazione base di Snapclient.}
-    \label{tab:snapclient_config}
+\begin{algorithm}[H]
+  \caption{}
+  \BlankLine
+  \begin{verbatim}
+    [snapclient]
+       host = <server\_ip>,
+       port = 1704,
+       sound\_mode = alsa
+  \end{verbatim}
+\end{algorithm}
+\caption{Configurazione base del client Snapclient}
 \end{table}
 
 La configurazione audio utilizza \gls{alsa} come backend audio predefinito, garantendo una bassa latenza e una buona compatibilità con l'hardware. Il buffer audio viene configurato con dimensioni ottimizzate per bilanciare latenza e stabilità di riproduzione:
 
 \begin{table}[H]
-    \centering
-    \begin{minipage}{0.4\textwidth} 
-      \begin{verbatim}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
+    \begin{verbatim}
         [stream]
-        buffer = 1000
-        latency = 0
-      \end{verbatim}
-    \end{minipage}
-    \caption{Configurazione del buffer audio di Snapclient.}
-    \label{tab:snapclient_buffer}
-  \end{table}
+          buffer = 1000,
+          latency = 0
+    \end{verbatim}
+  \end{algorithm}
+  \caption{Configurazione del buffer audio di Snapclient.}
+\end{table}
 
 Il sistema implementa anche una gestione automatica degli errori: in caso di perdita di connessione, i client tentano automaticamente di riconnettersi al server. La sincronizzazione audio tra i client viene mantenuta attraverso un sistema di timestamp, permettendo una riproduzione perfettamente sincronizzata in tutte le zone.
 Per garantire l'avvio automatico del servizio, Snapclient viene configurato come servizio systemd:
 
 \begin{table}[H]
-    \centering
-    \begin{minipage}{0.7\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
         [Unit]
         Description=Snapcast client
@@ -154,7 +157,7 @@ Per garantire l'avvio automatico del servizio, Snapclient viene configurato come
         [Install]
         WantedBy=multi-user.target
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{Configurazione del servizio Snapclient come servizio systemd.}
     \label{tab:snapclient_service}
   \end{table}
@@ -171,7 +174,9 @@ L'architettura frontend è stata progettata seguendo il pattern di gestione dell
 La struttura dell'applicazione è organizzata in moduli distinti:
 
 \begin{table}[H]
-    \begin{minipage}{0.6\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
         [Unit]
         components/   # Componenti riutilizzabili
@@ -180,7 +185,7 @@ La struttura dell'applicazione è organizzata in moduli distinti:
         util/         # Utility functions
         views/        # Componenti pagina
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{Parte della struttura del frontend.}
     \label{tab:frontend_struttura}
   \end{table}
@@ -188,14 +193,16 @@ La struttura dell'applicazione è organizzata in moduli distinti:
 Il cuore dell'interfaccia utente è rappresentato dal componente \texttt{PlaybackControls}, che gestisce tutte le interazioni dirette con il flusso audio. Il componente utilizza gli hooks di React per mantenere il proprio stato locale e si connette allo store Redux per accedere allo stato globale dell'applicazione:
 
 \begin{table}[H]
-    \begin{minipage}{0.8\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
-        const [playbackPosition, setPlaybackPosition] = useState(time_position);
-        const volume = useSelector((state) => state.mopidy.volume);
-        const play_state = useSelector((state) => state.mopidy.play_state);
-        const currentTrack = useSelector(currentTrackSelector);
+const [playbackPosition, setPlaybackPosition] = useState(time_position);
+const volume = useSelector((state) => state.mopidy.volume);
+const play_state = useSelector((state) => state.mopidy.play_state);
+const currentTrack = useSelector(currentTrackSelector);
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{Parte della struttura del file PlaybackControls.js.}
     \label{tab:playbackcontrols_js}
   \end{table}
@@ -204,7 +211,9 @@ Il cuore dell'interfaccia utente è rappresentato dal componente \texttt{Playbac
 Il componente implementa un timer che aggiorna la posizione di riproduzione ogni secondo quando una traccia è in riproduzione:
 
 \begin{table}[H]
-    \begin{minipage}{0.5\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
         useTimer(
           () => {
@@ -216,7 +225,7 @@ Il componente implementa un timer che aggiorna la posizione di riproduzione ogni
           true,
         );
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{Implementazione del timer per l'aggiornamento della posizione di riproduzione.}
     \label{tab:timer_implementazione}
 \end{table}
@@ -231,7 +240,9 @@ L'aspetto più innovativo dell'implementazione riguarda la gestione della sincro
 L'implementazione della gestione client è realizzata attraverso un sistema di azioni Redux che comunicano con il server Snapcast:
 
 \begin{table}[H]
-    \begin{minipage}{0.5\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
         export function setClientVolume(id, volume, group_id = null) {
           return {
@@ -242,7 +253,7 @@ L'implementazione della gestione client è realizzata attraverso un sistema di a
           };
         }
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{Esempio di azione Redux per la gestione del volume client.}
     \label{tab:redux_azione}
 \end{table}
@@ -258,7 +269,9 @@ Ogni client può essere configurato individualmente:
 I gruppi rappresentano zone audio logiche che possono contenere più client. L'implementazione prevede:
 
 \begin{table}[h]
-    \begin{minipage}{\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
         case 'SNAPCAST_SET_GROUP_VOLUME':
           var clients_to_update = [];
@@ -280,7 +293,7 @@ I gruppi rappresentano zone audio logiche che possono contenere più client. L'i
             }
           }
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{Implementazione della gestione del volume di gruppo.}
     \label{tab:volume_gruppo}
 \end{table}
@@ -297,26 +310,28 @@ La comunicazione con i servizi backend avviene attraverso due middleware special
 Il middleware Mopidy stabilisce una connessione WebSocket con il server e gestisce tutti gli eventi relativi alla riproduzione audio:
 
 \begin{table}[H]
-    \begin{minipage}{\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
-        const handleMessage = (ws, store, type, data) => {
-          switch (type) {
-            case 'state:online':
-              store.dispatch({ type: 'MOPIDY_CONNECTED' });
-              store.dispatch(mopidyActions.getCurrentTrack());
-              store.dispatch(mopidyActions.getPlayState());
-              store.dispatch(mopidyActions.getVolume());
-              break;
+  const handleMessage = (ws, store, type, data) => {
+    switch (type) {
+      case 'state:online':
+        store.dispatch({ type: 'MOPIDY_CONNECTED' });
+        store.dispatch(mopidyActions.getCurrentTrack());
+        store.dispatch(mopidyActions.getPlayState());
+        store.dispatch(mopidyActions.getVolume());
+        break;
   
-            case 'event:trackPlaybackStarted':
-              if (data.tl_track) {
-                store.dispatch(mopidyActions.currentTrackLoaded(data.tl_track));
-              }
-              break;
-          }
-        };
+      case 'event:trackPlaybackStarted':
+        if (data.tl_track) {
+        store.dispatch(mopidyActions.currentTrackLoaded(data.tl_track));
+      }
+      break;
+    }
+  };
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{}
     \label{tab:middleware_mopidy}
   \end{table}
@@ -328,7 +343,9 @@ Il middleware implementa anche un sistema di gestione degli errori e riconnessio
 Il middleware Snapcast utilizza il protocollo \gls{json-rpc} per comunicare con il server:
 
 \begin{table}[H]
-    \begin{minipage}{\textwidth}
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
       \begin{verbatim}
         const request = (store, method, params = null) 
                             => new Promise((resolve, reject) => {
@@ -342,7 +359,7 @@ Il middleware Snapcast utilizza il protocollo \gls{json-rpc} per comunicare con 
           socket.send(JSON.stringify(message));
         });
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{}
     \label{tab:request_function}
   \end{table}
@@ -364,7 +381,9 @@ Lo store Redux è stato progettato seguendo il principio della separazione delle
     \item \texttt{Stato Mopidy:} gestisce tutti gli aspetti relativi alla riproduzione audio.
 
           \begin{table}[H]
-            \begin{minipage}{0.45\textwidth}
+            \begin{algorithm}[H]
+              \caption{}
+              \BlankLine
               \begin{verbatim}
                 const mopidyState = {
                   connected: false,
@@ -389,7 +408,7 @@ Lo store Redux è stato progettato seguendo il principio della separazione delle
                   queue_metadata: {}
                 };
               \end{verbatim}
-            \end{minipage}
+            \end{algorithm}
             \caption{Stato Mopidy.}
             \label{tab:stato_mopidy}
           \end{table}
@@ -397,7 +416,9 @@ Lo store Redux è stato progettato seguendo il principio della separazione delle
     \item \texttt{Stato Snapcast:} gestisce la sincronizzazione multi-room.
 
           \begin{table}[H]
-            \begin{minipage}{0.45\textwidth}
+            \begin{algorithm}[H]
+              \caption{}
+              \BlankLine              
               \begin{verbatim}
                 const snapcastState = {
                   // Configurazione
@@ -419,7 +440,7 @@ Lo store Redux è stato progettato seguendo il principio della separazione delle
                   server: {}
                 };
               \end{verbatim}
-            \end{minipage}
+            \end{algorithm}
             \caption{Stato Snapcast.}
             \label{tab:stato_snapcast}
           \end{table}
@@ -427,7 +448,9 @@ Lo store Redux è stato progettato seguendo il principio della separazione delle
     \item \texttt{Stato UI:} gestisce l'interfaccia utente e le preferenze
 
           \begin{table}[H]
-            \begin{minipage}{0.35\textwidth}
+            \begin{algorithm}[H]
+              \caption{}
+              \BlankLine              
               \begin{verbatim}
                 const uiState = {
                   theme: 'dark',
@@ -439,7 +462,7 @@ Lo store Redux è stato progettato seguendo il principio della separazione delle
                   debug_info: false
                 };
               \end{verbatim}
-            \end{minipage}
+            \end{algorithm}
             \caption{Stato UI.}
             \label{tab:stato_ui}
           \end{table}
@@ -478,16 +501,18 @@ Infine, l'interfaccia gestisce lo stato delle preferenze utente:
 
 La gestione di questi stati nell'interfaccia è implementata attraverso componenti React che si aggiornano automaticamente in risposta ai cambiamenti. Per esempio, il componente dei controlli di riproduzione si mantiene sincronizzato con lo stato attraverso l'uso degli hooks di Redux:
 
-\begin{table}[h]
-    \begin{minipage}{\textwidth}
-      \begin{verbatim}
-        const PlaybackControls = () => {
-          const volume = useSelector((state) => state.mopidy.volume);
-          const playState = useSelector((state) => state.mopidy.play_state);
-          const currentTrack = useSelector((state) => state.mopidy.current_track);
-        };
+\begin{table}[H]
+  \begin{algorithm}[H]
+    \caption{}
+    \BlankLine
+  \begin{verbatim}
+const PlaybackControls = () => {
+  const volume = useSelector((state) => state.mopidy.volume);
+  const playState = useSelector((state) => state.mopidy.play_state);
+  const currentTrack = useSelector((state) => state.mopidy.current_track);
+};
       \end{verbatim}
-    \end{minipage}
+    \end{algorithm}
     \caption{}
     \label{tab:playbackcontrols}
   \end{table}
@@ -502,7 +527,6 @@ Nel contesto dell'interfaccia utente, la gestione degli errori si concentra sull
 
 \end{comment}
 
-\newpage
 \subsection{Test e Performance}
 \noindent
 
