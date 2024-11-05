@@ -37,7 +37,7 @@
 
 \adviserstring(a,1,m,it):={Relatore}
 \adviserstring(a,1,f,it):={Relatrice}
-\adviserstring(a,2,m,it):={Relatori}
+\adviserstring(a,2,m,it):={Relatore}
 \adviserstring(a,2,f,it):={Relatrici}
 \adviserstring(c,1,m,it):={Correlatore}
 \adviserstring(c,1,f,it):={Correlatrice}
@@ -79,7 +79,7 @@
 \committeestring(r,2,f,it):={Controrelatrici}
 \committeestring(a,1,m,it):={Relatore}
 \committeestring(a,2,f,it):={Relatrice}
-\committeestring(a,1,m,it):={Relatori}
+\committeestring(a,1,m,it):={Relatore}
 \committeestring(a,2,f,it):={Relatrici}
 \committeestring(ca,1,m,it):={Correlatore}
 \committeestring(ca,1,f,it):={Correlatrice}

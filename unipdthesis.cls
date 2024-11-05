@@ -236,7 +236,7 @@
                                                 /unipdthesis/lang/copyright=#1}},
   lang                          = en,
   % PRINT ON/OFF
-  print/committee/.new toggle   = false,
+  print/committee/.new toggle   = true,
   print/adviser/.new toggle     = true,     % fake option - adviser should always be printed
   print/frontmatter/.new toggle = true,
   print/secondcover/.new toggle = false,
