@@ -15,7 +15,7 @@
 
 Le soluzioni commerciali proposte da marchi rinomati come Sonos, Marshall e Bose richiederebbero l'installazione di collegamenti cablati in ogni sezione dell'edificio, rappresentando inoltre una scelta onerosa in termini di costi. Inoltre, la centralizzazione di questi sistemi da un singolo server si è dimostrata problematica. Per superare queste sfide, viene proposto un approccio wireless innovativo, in cui un server primario è incaricato di distribuire file audio pre registrati ai diversi client presenti nella rete.
 
-Il sistema proposto deve soddisfare tre requisiti fondamentali. Primo, è necessaria una stretta dipendenza tra le librerie del server primario e dei client. Secondo, occorre una connessione internet robusta o una rete locale, con il server principale configurato con un indirizzo IP statico. Terzo, l'intera architettura deve essere economicamente vantaggiosa, semplificando sia l'implementazione che la manutenzione.
+Il sistema proposto deve soddisfare tre requisiti fondamentali. Primo, è necessaria una stretta dipendenza tra le librerie del server primario e dei client. Secondo, occorre una connessione internet robusta o una rete locale, con il server principale configurato con un indirizzo \gls{ip} statico. Terzo, l'intera architettura deve essere economicamente vantaggiosa, semplificando sia l'implementazione che la manutenzione.
 
 Per realizzare questo progetto, si è scelto di utilizzare il Raspberry Pi, un microcomputer con il supporto del sistema operativo Linux. Dopo ulteriori ricerche, è stata selezionata la versione DietPi, basata su Debian, preferendola ad altre versioni con \gls{gui}. Sono stati quindi considerati due possibili approcci di implementazione: uno basato su Balena Sound con sistema operativo Balena e l'altro impiegando i server Mopidy e Snapcast su DietPi.
 
@@ -83,7 +83,7 @@ L'implementazione del backend concerne la configurazione e lo sviluppo dei compo
 
 \subsection{Configurazione del Server}
 
-Il server principale, posizionato fisicamente nella sala server, richiede una configurazione specifica dell'indirizzo IP statico per garantire una connessione stabile e affidabile. Il sistema è stato configurato con Mopidy per la gestione delle sorgenti audio e della libreria musicale. Il file di configurazione di Mopidy è stato personalizzato per ottimizzare la gestione dell'audio:
+Il server principale, posizionato fisicamente nella sala server, richiede una configurazione specifica dell'indirizzo \gls{ip} statico per garantire una connessione stabile e affidabile. Il sistema è stato configurato con Mopidy per la gestione delle sorgenti audio e della libreria musicale. Il file di configurazione di Mopidy è stato personalizzato per ottimizzare la gestione dell'audio:
 
 
   \begin{table}[H]
@@ -100,7 +100,7 @@ Il server principale, posizionato fisicamente nella sala server, richiede una co
     \caption{Esempio di configurazione della pipeline audio di Mopidy.}
     \end{table}
 
-Questa configurazione permette di convertire e ricampionare l'audio a 48kHz con una profondità di 16 bit, garantendo un buon compromesso tra qualità e larghezza di banda. L'output viene diretto a un file FIFO che funge da buffer tra Mopidy e Snapcast.
+L'output viene diretto a un file \gls{fifo} che funge da buffer tra Mopidy e Snapcast.
 
 Snapserver è stato configurato per leggere da questo buffer e gestire la distribuzione dei flussi audio. Il sistema di buffering è stato ottimizzato per ridurre la latenza mantenendo una riproduzione stabile. Entrambi i servizi sono stati configurati per l'avvio automatico attraverso systemd, garantendo la ripresa automatica del servizio in caso di riavvio del sistema.
 
